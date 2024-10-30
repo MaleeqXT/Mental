@@ -11,7 +11,7 @@
                     <span class="avatar-online bg-success"></span>
                 </div>
                 <div class="user-info">
-                    <h5 class="mt-3 font-size-16 text-white">James Raphael</h5>
+                    <h5 class="mt-3 font-size-16 text-white">{{ auth()->user()->name }}</h5>
                     <span class="font-size-13 text-white-50">Administrator</span>
                 </div>
             </div>

@@ -83,7 +83,7 @@
                                 <img src="{{asset('auth/assets/images/users/avatar-3.jpg')}}"
                                     class="me-3 rounded-circle avatar-xs" alt="user-pic">
                                 <div class="media-body">
-                                    <h6 class="mt-0 mb-1">James Lemire</h6>
+                                    <h6 class="mt-0 mb-1">{{ auth()->user()->name }}</h6>
                                     <div class="font-size-13 text-muted">
                                         <p class="mb-1">It will seem like simplified English.</p>
                                         <p class="mb-0"><i class="mdi mdi-clock-outline"></i> 1 hours ago</p>
@@ -135,7 +135,7 @@
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img class="rounded-circle header-profile-user" src="{{asset('auth/assets/images/users/avatar-7.jpg')}}"
                         alt="Header Avatar">
-                    <span class="d-none d-xl-inline-block ms-1">James</span>
+                    <span class="d-none d-xl-inline-block ms-1">{{ auth()->user()->name }}</span>
                     <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
