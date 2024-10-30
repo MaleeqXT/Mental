@@ -72,10 +72,10 @@
                                     <div id="personalInfo" class="bio-section">
                                         <div class="d-flex align-items-center justify-content-between mb-4">
                                             <div class="d-flex align-items-center">
-                                                <img src="{{ asset('auth/assets/images/users/avatar-7.jpg') }}" alt="Profile Image" class="rounded-circle" width="80" height="80">
+                                                <img src="{{ asset( auth()->user()->image) }}" alt="Profile Image" class="rounded-circle" width="80" height="80">
                                                 <div class="ms-3">
                                                     <h4 class="font-size-24 mb-0">{{ auth()->user()->name }}</h4>
-                                                    <p class="text-muted mb-0" id="titleDisplay">Senior Software Engineer</p> <!-- Static title -->
+                                                    <p class="text-muted mb-0" id="user-title">{{ $title ?? 'Senior Software Engineer' }}</p>
                                                 </div>
                                             </div>
                                     
@@ -85,15 +85,10 @@
                                             </button>
                                         </div>
                                     
-                                        <!-- Additional Personal Info -->
-                                        <p id="bioDisplay">
-                                            Senior Software Full-Time Developer with over 8 years of experience in designing, developing, and deploying high-performance applications. Proficient in a variety of programming languages, including JavaScript, PHP, and Python, with a strong focus on Laravel and web development.                        </p>
-                                                                                <h5><strong>Contact Information:</strong></h5>
-                                        <p>{{ auth()->user()->email }}</p> <!-- Static email -->
-                                        <p id="phoneDisplay">Phone: +123 456 7890</p> <!-- Static phone -->
-                                    
-                                        <!-- Hidden User ID -->
-                                        <input type="hidden" id="user_id" value="1"> <!-- Static user ID -->
+                                        <p id="user-bio">{{ $bio ?? 'Senior Software Full Time Developer' }}</p>
+                                        <h5><strong>Contact Information:</strong></h5>
+                                        <p>Email: {{ auth()->user()->email }}</p>
+                                        <p>Phone: <span id="user-phone">{{ $phone ?? '+123 456 7890' }}</span></p>
                                     </div>
                                     
                                     <!-- Edit Modal Structure -->
@@ -106,19 +101,19 @@
                                                 </div>
                                                 <form id="editForm">
                                                     @csrf
-                                                    <input type="hidden" id="user_id" name="user_id" value="1"> <!-- Static user ID -->
+                                                    <input type="hidden" id="user_id" name="user_id" value="{{ auth()->user()->id }}">
                                                     <div class="modal-body">
                                                         <div class="mb-3">
-                                                            <label for="title" class="form-label">Title</label>
-                                                            <input type="text" class="form-control" id="title" name="title" value="Senior Software Engineer"> <!-- Static default value -->
-                                                        </div>
-                                                        <div class="mb-3">
                                                             <label for="bio" class="form-label">Bio</label>
-                                                            <textarea class="form-control" id="bio" name="bio" rows="3">Senior Software Full Time Developer</textarea> <!-- Static default value -->
+                                                            <textarea class="form-control" id="bio" name="bio" rows="3">{{ $bio ?? 'Senior Software Full Time Developer' }}</textarea>
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="phone" class="form-label">Phone</label>
-                                                            <input type="text" class="form-control" id="phone" name="phone" value="+123 456 7890"> <!-- Static default value -->
+                                                            <input type="text" class="form-control" id="phone" name="phone" value="{{ $phone ?? '+123 456 7890' }}">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="title" class="form-label">Title</label>
+                                                            <input type="text" class="form-control" id="title" name="title" value="{{ $title ?? 'Senior Software Engineer' }}">
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
@@ -132,51 +127,145 @@
                                     
                                     <script>
                                         $(document).ready(function() {
+                                            // Handle form submission
                                             $('#editForm').on('submit', function(e) {
                                                 e.preventDefault(); // Prevent the default form submission
-                                    
-                                                // Prepare form data
-                                                var formData = {
-                                                    user_id: $('#user_id').val(),
-                                                    bio: $('#bio').val(),
-                                                    phone: $('#phone').val(),
-                                                    title: $('#title').val(),
-                                                    _token: '{{ csrf_token() }}' // Add CSRF token
-                                                };
-                                    
+                                        
                                                 $.ajax({
-                                                    url: '/profile/update', // Use the inline route for updating
+                                                    url: '{{ route("profile.update") }}', // Ensure this matches your route
                                                     type: 'POST',
-                                                    data: formData, // Send the prepared data
+                                                    data: $(this).serialize(), // Serialize the form data
                                                     success: function(response) {
-                                                        // Update displayed user info without reloading the page
-                                                        $('#bioDisplay').text(response.bio || 'Senior Software Full Time Developer'); // Update bio display
-                                                        $('#phoneDisplay').text('Phone: ' + (response.phone || '+123 456 7890')); // Update phone display
-                                                        $('#titleDisplay').text(response.title || 'Senior Software Engineer'); // Update title display
-                                    
+                                                        // Update personal info without reloading
+                                                        $('#user-bio').text(response.bio);
+                                                        $('#user-phone').text(response.phone);
+                                                        $('#user-title').text(response.title); // Update title
+                                        
                                                         // Close the modal
                                                         $('#editModal').modal('hide');
                                                     },
                                                     error: function(xhr) {
-                                                        // Handle errors here, show a message if needed
-                                                        alert("An error occurred. Please try again.");
+                                                        // Log error for debugging
+                                                        console.error(xhr.responseText); // Log any error messages
+                                                        alert("An error occurred. Please try again."); // Notify the user of the error
                                                     }
                                                 });
                                             });
+                                        
+                                            // Reset the form fields when the modal is hidden
+                                            $('#editModal').on('hidden.bs.modal', function () {
+                                                $('#editForm')[0].reset(); // Reset the form fields
+                                            });
                                         });
-                                    </script>
+                                        </script>
+                                        
                                     
-                                    <!-- Finances Section -->
-                                    <div id="finances" class="bio-section d-none">
-                                        <h5><strong>Finances:</strong></h5>
-                                        <p>John manages the financial planning and budgeting for the tech department. He ensures effective resource allocation and cost control, providing regular updates and projections for operational spending.</p>
-                                        <h5><strong>Financial Insights:</strong></h5>
-                                        <ul>
-                                            <li>Department Budget: $500,000 annually</li>
-                                            <li>Expense Management: Regular oversight of project expenditures and monthly reports</li>
-                                            <li>Investment Plans: Initiatives for technology upgrades and resource optimization</li>
-                                        </ul>
-                                    </div>
+                                        <div id="finances" class="bio-section d-none">
+                                            <h5><strong>Finances:</strong></h5>
+                                            <p>John manages the financial planning and budgeting for the tech department. He ensures effective resource allocation and cost control, providing regular updates and projections for operational spending.</p>
+                                            
+                                            <!-- Edit Button for Fees -->
+                                            <h6>
+                                                <i class="fas fa-money-bill-wave"></i> Fees
+                                                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#editModal" style="padding: 0; margin-right: 10px; margin-left: 50%;">
+                                                    <i class="fas fa-edit"></i> Edit
+                                                </button>
+                                            </h6>
+                                            
+                                            <h6>Individual Session Cost :</h6>
+                                            <p id="individual-cost-display" style="color: #939a9c;">$250 per session</p>
+                                        
+                                            <h6>Couple Session Cost :</h6>
+                                            <p id="couple-cost-display" style="color: #939a9c;">$300 per session</p>
+                                            <hr>
+                                        
+                                            <h6><i class="fas fa-credit-card"></i> Payment Method</h6>
+                                            <p id="payment-methods-display">
+                                                <span>American Express</span> 
+                                                <span style="margin-left: 100px">Mastercard</span>
+                                            </p>
+                                            <p id="payment-methods-display-2">
+                                                <span>Health Savings Account</span> 
+                                                <span style="margin-left: 100px">Visa</span>
+                                            </p>
+                                        
+                                            <!-- Edit Modal -->
+                                            <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="editModalLabel">Edit Finances</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form>
+                                                                <div class="form-group">
+                                                                    <label for="individual-cost">Individual Session Cost</label>
+                                                                    <input type="text" class="form-control" id="individual-cost">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="couple-cost">Couple Session Cost</label>
+                                                                    <input type="text" class="form-control" id="couple-cost">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="payment-methods">Payment Methods</label>
+                                                                    <input type="text" class="form-control" id="payment-methods">
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                            <button type="button" class="btn btn-primary" id="save-changes">Save changes</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Include Bootstrap and jQuery -->
+                                        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+                                        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+                                        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+                                        
+                                        <!-- JavaScript for Modal Functionality -->
+                                        <script>
+                                            $(document).ready(function() {
+                                                // Open modal and populate fields with current finance details
+                                                $('.btn-link').click(function() {
+                                                    // Get current values
+                                                    const individualCost = $('#individual-cost-display').text().replace(' per session', '').replace('$', '');
+                                                    const coupleCost = $('#couple-cost-display').text().replace(' per session', '').replace('$', '');
+                                                    const paymentMethods = $('#payment-methods-display span').map(function() {
+                                                        return $(this).text();
+                                                    }).get().join(', ');
+                                        
+                                                    // Set the values in the modal input fields
+                                                    $('#individual-cost').val(individualCost);
+                                                    $('#couple-cost').val(coupleCost);
+                                                    $('#payment-methods').val(paymentMethods);
+                                                });
+                                        
+                                                // Save changes button click event
+                                                $('#save-changes').click(function() {
+                                                    // Get values from modal inputs
+                                                    const updatedIndividualCost = $('#individual-cost').val();
+                                                    const updatedCoupleCost = $('#couple-cost').val();
+                                                    const updatedPaymentMethods = $('#payment-methods').val().split(', ').map(function(method) {
+                                                        return <span>${method}</span>;
+                                                    }).join(' <span style="margin-left: 100px"></span> ');
+                                        
+                                                    // Update the displayed values
+                                                    $('#individual-cost-display').text($${updatedIndividualCost} per session);
+                                                    $('#couple-cost-display').text($${updatedCoupleCost} per session);
+                                                    $('#payment-methods-display').html(updatedPaymentMethods);
+                                        
+                                                    // Close the modal
+                                                    $('#editModal').modal('hide');
+                                                });
+                                            });
+                                        </script>
 
                                     <!-- Qualifications Section -->
                                     <div id="qualifications" class="bio-section d-none">

@@ -15,7 +15,6 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/', function () {
     return view('mentalpress');
 });
-
 Route::post('/profile/update', function (Request $request) {
     // Validate input fields
     $request->validate([
@@ -29,9 +28,12 @@ Route::post('/profile/update', function (Request $request) {
     $user = User::findOrFail($request->user_id);
     $user->update($request->only('bio', 'phone', 'title'));
 
-    return response()->json($user);
+    return response()->json([
+        'bio' => $user->bio,
+        'phone' => $user->phone,
+        'title' => $user->title,
+    ]);
 })->name('profile.update');
-
 
 Auth::routes();
 
