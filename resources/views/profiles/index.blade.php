@@ -270,29 +270,79 @@
                                     <!-- Qualifications Section -->
                                     <div id="qualifications" class="bio-section d-none">
                                         <h5><strong>Qualifications:</strong></h5>
-                                        <p>John holds a Bachelor’s degree in Computer Science from Stanford University and is a certified full-stack developer. He has a strong foundation in both theory and practical application, making him proficient in both backend and frontend technologies.</p>
-                                        <h5><strong>Certifications & Courses:</strong></h5>
-                                        <ul>
-                                            <li>Bachelor’s in Computer Science from Stanford University</li>
-                                            <li>Certified Full-Stack Developer</li>
-                                            <li>Advanced JavaScript and React - Coursera</li>
-                                            <li>Machine Learning Basics - Udacity</li>
-                                        </ul>
+                                        <h5><i class="fas fa-certificate"></i> <strong>Primary Credential</strong></h5>
+
+                                        
+                                        <p><strong>Mental Health Role:</strong> Psychologist</p>                                        
+                                        <p><strong>Credential Type :</strong>License</p>
+                                        <p><strong>License State :</strong>USA $ New York</p>
+                                        <p><strong>License Number :</strong>PSO270803</p>
+                                        <p><strong>License Expiration Date :</strong>25-10</p>
+                                        <hr>
+                                        <h5><i class="fas fa-graduation-cap"></i> <strong>Education and Years in Practice</strong></h5>
+
+                                        <p><strong>Education :</strong>Boston College</p>
+                                        <p><strong>Degree/Diploma :</strong>MSW</p>
+                                        <p><strong>Year Graduated :</strong>2018</p>
+                                        <p><strong>Year ! I Begin Practice :</strong>2019</p>
+                                           <hr>
+                                           <h5><i class="fas fa-award"></i> <strong>Additional Credentials</strong></h5>
+
+                                        <p><strong>Degree/Diploma :</strong>West Chester University 2024</p>
+                                        <p><strong>Degree/Diploma:</strong>2024</p>
+
                                     </div>
 
                                     <!-- Specialties Section -->
-                                    <div id="specialties" class="bio-section d-none">
-                                        <h5><strong>Specialties:</strong></h5>
-                                        <p>John’s technical skills are diverse and include expertise in software architecture, REST API design, and DevOps. His projects often focus on building efficient systems with a strong emphasis on performance and scalability.</p>
-                                        <h5><strong>Technical Expertise:</strong></h5>
-                                        <ul>
-                                            <li>Programming Languages: PHP, JavaScript, Python</li>
-                                            <li>Frameworks: Laravel, Vue.js, Express</li>
-                                            <li>Databases: MySQL, PostgreSQL, MongoDB</li>
-                                            <li>Tools & Platforms: Docker, AWS, Git</li>
-                                        </ul>
-                                    </div>
-                                </div>
+<!-- Specialties Section -->
+<div id="specialties" class="bio-section d-none">
+    <h5><i class="fas fa-trophy"></i> Top Specialities and Experties</h5>
+    <h6><stong> Top Specialities:</stong></h6> 
+    <p> Women's Issues</p> 
+    <p> Mood Disorders</p> 
+    <p> Life Coaching</p> 
+    <hr>
+    <h6><i class="fa fa-exclamation-circle"></i> Issues</h6>
+    <p>
+        <span>Anger Management</span> 
+        <span style="margin-left: 130px">Infidelity</span>
+    </p> 
+    <p>
+        <span>Axiety</span> 
+        <span style="margin-left: 220px">Marital and Premarital</span>
+    </p> 
+    <p>
+        <span>Codependency</span> 
+        <span style="margin-left: 160px">Obsessive-Compulsive(OCD)</span>
+    </p> 
+    <p>
+        <span>Coping Skills</span> 
+        <span style="margin-left: 178px">Parenting</span>
+    </p>
+    <p>
+        <span>Depression</span> 
+        <span style="margin-left: 190px">Peer Relationships</span>
+    </p>
+    <p>
+        <span>Divorce</span> 
+        <span style="margin-left: 214px">Pregnancy,Prenatal,PostPartum</span>
+    </p> 
+    <p>
+        <span>Domestic Voilence</span> 
+        <span style="margin-left: 143px">Racial Identity</span>
+    </p> 
+    <p>
+        <span>Emotional Disturbance</span> 
+        <span style="margin-left: 116px">Releationships Issue</span>
+    </p> 
+    <p>
+        <span>Family Conflict</span> 
+        <span style="margin-left: 167px">Self Esteem</span>
+    </p> 
+
+
+
+</div>                                </div>
                             </div>
                         </div>
                     </div>
