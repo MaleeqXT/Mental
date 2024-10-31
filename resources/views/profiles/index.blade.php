@@ -17,7 +17,6 @@
                 </div>
                 <div class="col-sm-6">
                     <div class="float-end d-none d-sm-block">
-                        <a href="#" class="btn btn-success">Edit Profile</a>
                     </div>
                 </div>
             </div>
@@ -32,13 +31,13 @@
                 <div class="col-xl-3 col-lg-4">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="font-size-16">Categories</h5>
+                            <h5 class="font-size-16">My Proflie</h5>
                             <div class="border p-3 rounded mt-4">
                                 <!-- Category Links -->
                                 <div id="accordion" class="categories-accordion">
                                     <div class="categories-group-card">
                                         <a href="javascript:void(0);" class="categories-group-list" onclick="showCategory('personalInfo')">
-                                            <i class="ti-user font-size-16 align-middle me-2"></i> Personal Info
+                                            <i class="ti-user font-size-16 align-middle me-2"></i> About Me
                                         </a>
                                     </div>
                                     <div class="categories-group-card">
