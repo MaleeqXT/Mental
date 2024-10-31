@@ -15,25 +15,7 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/', function () {
     return view('mentalpress');
 });
-Route::post('/profile/update', function (Request $request) {
-    // Validate input fields
-    $request->validate([
-        'user_id' => 'required|integer|exists:users,id',
-        'bio' => 'nullable|string|max:255',
-        'phone' => 'nullable|string|max:20',
-        'title' => 'nullable|string|max:100',
-    ]);
-
-    // Find the user and update
-    $user = User::findOrFail($request->user_id);
-    $user->update($request->only('bio', 'phone', 'title'));
-
-    return response()->json([
-        'bio' => $user->bio,
-        'phone' => $user->phone,
-        'title' => $user->title,
-    ]);
-})->name('profile.update');
+Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 
 Auth::routes();
 
