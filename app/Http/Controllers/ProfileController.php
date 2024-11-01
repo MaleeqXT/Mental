@@ -21,16 +21,26 @@ class ProfileController extends Controller
             'phone' => 'string|max:20',
             'title' => 'string|max:100',
         ]);
-
+    
         // Update the authenticated user's profile fields
-        auth()->user()->update([
+        $user = auth()->user();
+        $user->update([
             'bio' => $request->input('bio'),
             'phone' => $request->input('phone'),
             'title' => $request->input('title'),
         ]);
-
-        // Redirect to profiles.index with a success message
+    
+        // Return JSON response if the request is AJAX
+        if ($request->ajax()) {
+            return response()->json([
+                'bio' => $user->bio,
+                'phone' => $user->phone,
+                'title' => $user->title,
+            ]);
+        }
+    
+        // Redirect for non-AJAX requests
         return redirect()->route('profiles.index')->with('success', 'Profile updated successfully!');
     }
-    
+        
 }

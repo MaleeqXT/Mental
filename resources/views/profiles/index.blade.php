@@ -156,232 +156,270 @@
                                     </script>
                                                                       
                                     
-                                    <div id="finances" class="bio-section d-none">
-                                        <h5><strong>Finances:</strong></h5>
-                                        <p>John manages the financial planning and budgeting for the tech department.</p>
-                                    
-                                        <!-- Edit Button for Fees and Payment Methods -->
-                                        <h6>
-                                            <i class="fas fa-money-bill-wave"></i> Fees & Payment Methods
-                                            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#editFinancesModal" style="padding: 0; margin-right: 10px; margin-left: 50%;">
-                                                <i class="fas fa-edit"></i> Edit
-                                            </button>
-                                        </h6>
-                                    
-                                        <h6>Individual Session Cost :</h6>
-                                        <p id="individual-cost-display" style="color: #939a9c;">$250 per session</p>
-                                    
-                                        <h6>Couple Session Cost :</h6>
-                                        <p id="couple-cost-display" style="color: #939a9c;">$300 per session</p>
-                                        <hr>
-                                    
-                                        <h6><i class="fas fa-credit-card"></i> Payment Methods</h6>
-                                        <p id="payment-methods-display">
-                                            <span>American Express</span>
-                                            <span style="margin-left: 100px">Mastercard</span>
-                                        </p>
-                                        <p id="payment-methods-display-2">
-                                            <span>Health Savings Account</span>
-                                            <span style="margin-left: 100px">Visa</span>
-                                        </p>
-                                    
-                                        <!-- Edit Finances Modal -->
-                                        <div class="modal fade" id="editFinancesModal" tabindex="-1" role="dialog" aria-labelledby="editFinancesModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="editFinancesModalLabel">Edit Finances</h5>
-                                                        
+                                                                      <div id="finances" class="bio-section d-none">
+                                                                        <h5><strong>Finances:</strong></h5>
+                                                                        <p>John manages the financial planning and budgeting for the tech department.</p>
+                                                                    
+                                                                        <!-- Edit Button for Fees and Payment Methods -->
+                                                                        <h6>
+                                                                            <i class="fas fa-money-bill-wave"></i> Fees & Payment Methods
+                                                                            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#editFinancesModal" style="padding: 0; margin-right: 10px; margin-left: 50%;">
+                                                                                <i class="fas fa-edit"></i> Edit
+                                                                            </button>
+                                                                        </h6>
+                                                                    
+                                                                        <h6>Individual Session Cost :</h6>
+                                                                        <p id="individual-cost-display" style="color: #939a9c;">$250 per session</p>
+                                                                    
+                                                                        <h6>Couple Session Cost :</h6>
+                                                                        <p id="couple-cost-display" style="color: #939a9c;">$300 per session</p>
+                                                                        <hr>
+                                                                    
+                                                                        <h6><i class="fas fa-credit-card"></i> Payment Methods</h6>
+                                                                        <p id="payment-methods-display">
+                                                                            <span>American Express</span>
+                                                                            <span style="margin-left: 100px">Mastercard</span>
+                                                                        </p>
+                                                                        <p id="payment-methods-display-2">
+                                                                            <span>Health Savings Account</span>
+                                                                            <span style="margin-left: 100px">Visa</span>
+                                                                        </p>
+                                                                    
+                                                                        <!-- Edit Finances Modal -->
+                                                                        <div class="modal fade" id="editFinancesModal" tabindex="-1" role="dialog" aria-labelledby="editFinancesModalLabel" aria-hidden="true">
+                                                                            <div class="modal-dialog" role="document">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <h5 class="modal-title" id="editFinancesModalLabel">Edit Finances</h5>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                        <form>
+                                                                                            <div class="form-group">
+                                                                                                <label for="individual-cost">Individual Session Cost</label>
+                                                                                                <input type="text" class="form-control" id="individual-cost">
+                                                                                            </div>
+                                                                                            <div class="form-group">
+                                                                                                <label for="couple-cost">Couple Session Cost</label>
+                                                                                                <input type="text" class="form-control" id="couple-cost">
+                                                                                            </div>
+                                                                                            <div class="form-group">
+                                                                                                <label for="payment-methods">Payment Methods (comma-separated)</label>
+                                                                                                <input type="text" class="form-control" id="payment-methods">
+                                                                                            </div>
+                                                                                        </form>
+                                                                                    </div>
+                                                                                    <div class="modal-footer">
+                                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                                        <button type="button" class="btn btn-primary" id="save-finances-changes" data-dismiss="modal">Save changes</button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    
+                                                                    <!-- Include full version of jQuery and Bootstrap -->
+                                                                    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+                                                                    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+                                                                    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+                                                                    
+                                                                    <!-- JavaScript for Modal Functionality -->
+                                                                    <script>
+                                                                        $(document).ready(function() {
+                                                                            // Check if jQuery is loaded
+                                                                            if (typeof jQuery === "undefined") {
+                                                                                console.error("jQuery is not loaded.");
+                                                                                return;
+                                                                            }
+                                                                    
+                                                                            // Open modal and populate fields with current finance details
+                                                                            $('.btn-link[data-target="#editFinancesModal"]').click(function() {
+                                                                                console.log("Edit button clicked.");
+                                                                    
+                                                                                const individualCost = $('#individual-cost-display').text().replace(' per session', '').replace('$', '');
+                                                                                const coupleCost = $('#couple-cost-display').text().replace(' per session', '').replace('$', '');
+                                                                                const paymentMethods = $('#payment-methods-display span').map(function() {
+                                                                                    return $(this).text();
+                                                                                }).get().join(', ');
+                                                                    
+                                                                                // Set the values in the modal input fields
+                                                                                $('#individual-cost').val(individualCost);
+                                                                                $('#couple-cost').val(coupleCost);
+                                                                                $('#payment-methods').val(paymentMethods);
+                                                                            });
+                                                                    
+                                                                            // Save changes button click event for fees and payment methods
+                                                                            $('#save-finances-changes').click(function() {
+                                                                                console.log("Save changes button clicked.");
+                                                                    
+                                                                                const updatedIndividualCost = $('#individual-cost').val();
+                                                                                const updatedCoupleCost = $('#couple-cost').val();
+                                                                                const updatedPaymentMethods = $('#payment-methods').val().split(',').map(function(method) {
+                                                                                    return '<span>' + method.trim() + '</span>';
+                                                                                }).join('<span style="margin-left: 100px"></span>');
+                                                                    
+                                                                                // Debug: Log values to ensure they are captured correctly
+                                                                                console.log("Updated Individual Cost:", updatedIndividualCost);
+                                                                                console.log("Updated Couple Cost:", updatedCoupleCost);
+                                                                                console.log("Updated Payment Methods:", updatedPaymentMethods);
+                                                                    
+                                                                                // Update the displayed values
+                                                                                $('#individual-cost-display').text('$' + updatedIndividualCost + ' per session');
+                                                                                $('#couple-cost-display').text('$' + updatedCoupleCost + ' per session');
+                                                                                $('#payment-methods-display').html(updatedPaymentMethods);
+                                                                    
+                                                                                // Make the finance section visible
+                                                                                $('#finances').removeClass('d-none');
+                                                                    
+                                                                                // Close the modal
+                                                                                $('#editFinancesModal').modal('hide');
+                                                                            });
+                                                                        });
+                                                                    </script>               <!-- Qualifications Section -->
+                                  <div id="qualifications" class="bio-section d-none">
+                                    <h5>
+                                        <strong>Qualifications:</strong>
+                                        <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#editQualificationsModal" style="padding: 0; margin-right: 10px; margin-left: 50%;">
+                                            <i class="fas fa-edit"></i> Edit
+                                        </button>
+                                    </h5>
+                                    <h5><i class="fas fa-certificate"></i> <strong>Primary Credential</strong></h5>
+                                    <p><strong>Mental Health Role:</strong> <span id="displayMentalHealthRole">Psychologist</span></p>
+                                    <p><strong>Credential Type:</strong> <span id="displayCredentialType">License</span></p>
+                                    <p><strong>License State:</strong> <span id="displayLicenseState">USA, New York</span></p>
+                                    <p><strong>License Number:</strong> <span id="displayLicenseNumber">PSO270803</span></p>
+                                    <p><strong>License Expiration Date:</strong> <span id="displayLicenseExpirationDate">25-10</span></p>
+                                    <hr>
+                                    <h5><i class="fas fa-graduation-cap"></i> <strong>Education and Years in Practice</strong></h5>
+                                    <p><strong>Education:</strong> <span id="displayEducation">Boston College</span></p>
+                                    <p><strong>Degree/Diploma:</strong> <span id="displayDegree">MSW</span></p>
+                                    <p><strong>Year Graduated:</strong> <span id="displayYearGraduated">2018</span></p>
+                                    <p><strong>Year I Begin Practice:</strong> <span id="displayYearBeginPractice">2019</span></p>
+                                    <hr>
+                                    <h5><i class="fas fa-award"></i> <strong>Additional Credentials</strong></h5>
+                                    <p><span id="displayAdditionalCredentials">West Chester University 2024</span></p>
+                                </div>
+                                
+                                <!-- Modal for Editing Qualifications -->
+                                <div class="modal fade" id="editQualificationsModal" tabindex="-1" aria-labelledby="editQualificationsModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="editQualificationsModalLabel">Edit Qualifications</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form id="qualificationsForm">
+                                                    <div class="mb-3">
+                                                        <label for="mentalHealthRole" class="form-label">Mental Health Role</label>
+                                                        <input type="text" class="form-control" id="mentalHealthRole" value="Psychologist">
                                                     </div>
-                                                    <div class="modal-body">
-                                                        <form>
-                                                            <div class="form-group">
-                                                                <label for="individual-cost">Individual Session Cost</label>
-                                                                <input type="text" class="form-control" id="individual-cost">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="couple-cost">Couple Session Cost</label>
-                                                                <input type="text" class="form-control" id="couple-cost">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="payment-methods">Payment Methods (comma-separated)</label>
-                                                                <input type="text" class="form-control" id="payment-methods">
-                                                            </div>
-                                                        </form>
+                                                    <div class="mb-3">
+                                                        <label for="credentialType" class="form-label">Credential Type</label>
+                                                        <input type="text" class="form-control" id="credentialType" value="License">
                                                     </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        <button type="button" class="btn btn-primary" id="save-finances-changes">Save changes</button>
+                                                    <div class="mb-3">
+                                                        <label for="licenseState" class="form-label">License State</label>
+                                                        <input type="text" class="form-control" id="licenseState" value="USA, New York">
                                                     </div>
-                                                </div>
+                                                    <div class="mb-3">
+                                                        <label for="licenseNumber" class="form-label">License Number</label>
+                                                        <input type="text" class="form-control" id="licenseNumber" value="PSO270803">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="licenseExpirationDate" class="form-label">License Expiration Date</label>
+                                                        <input type="text" class="form-control" id="licenseExpirationDate" value="25-10">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="education" class="form-label">Education</label>
+                                                        <input type="text" class="form-control" id="education" value="Boston College">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="degree" class="form-label">Degree/Diploma</label>
+                                                        <input type="text" class="form-control" id="degree" value="MSW">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="yearGraduated" class="form-label">Year Graduated</label>
+                                                        <input type="text" class="form-control" id="yearGraduated" value="2018">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="yearBeginPractice" class="form-label">Year I Begin Practice</label>
+                                                        <input type="text" class="form-control" id="yearBeginPractice" value="2019">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="additionalCredentials" class="form-label">Additional Credentials</label>
+                                                        <input type="text" class="form-control" id="additionalCredentials" value="West Chester University 2024">
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-primary" id="saveQualifications">Save changes</button>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                
+                                <script>
+                                    document.addEventListener('DOMContentLoaded', function() {
+                                        // Load saved values from localStorage if available
+                                        if (localStorage.getItem('mentalHealthRole')) {
+                                            document.getElementById('displayMentalHealthRole').innerText = localStorage.getItem('mentalHealthRole');
+                                            document.getElementById('displayCredentialType').innerText = localStorage.getItem('credentialType');
+                                            document.getElementById('displayLicenseState').innerText = localStorage.getItem('licenseState');
+                                            document.getElementById('displayLicenseNumber').innerText = localStorage.getItem('licenseNumber');
+                                            document.getElementById('displayLicenseExpirationDate').innerText = localStorage.getItem('licenseExpirationDate');
+                                            document.getElementById('displayEducation').innerText = localStorage.getItem('education');
+                                            document.getElementById('displayDegree').innerText = localStorage.getItem('degree');
+                                            document.getElementById('displayYearGraduated').innerText = localStorage.getItem('yearGraduated');
+                                            document.getElementById('displayYearBeginPractice').innerText = localStorage.getItem('yearBeginPractice');
+                                            document.getElementById('displayAdditionalCredentials').innerText = localStorage.getItem('additionalCredentials');
+                                        }
+                                    });
                                     
-                                    <!-- Include full version of jQuery and Bootstrap -->
-                                    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-                                    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-                                    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+                                    document.getElementById('saveQualifications').addEventListener('click', function() {
+                                        // Get values from the form
+                                        const mentalHealthRole = document.getElementById('mentalHealthRole').value;
+                                        const credentialType = document.getElementById('credentialType').value;
+                                        const licenseState = document.getElementById('licenseState').value;
+                                        const licenseNumber = document.getElementById('licenseNumber').value;
+                                        const licenseExpirationDate = document.getElementById('licenseExpirationDate').value;
+                                        const education = document.getElementById('education').value;
+                                        const degree = document.getElementById('degree').value;
+                                        const yearGraduated = document.getElementById('yearGraduated').value;
+                                        const yearBeginPractice = document.getElementById('yearBeginPractice').value;
+                                        const additionalCredentials = document.getElementById('additionalCredentials').value;
                                     
-                                    <!-- JavaScript for Modal Functionality -->
-                                    <script>
-                                        $(document).ready(function() {
-                                            // Open modal and populate fields with current finance details
-                                            $('.btn-link[data-target="#editFinancesModal"]').click(function() {
-                                                const individualCost = $('#individual-cost-display').text().replace(' per session', '').replace('$', '');
-                                                const coupleCost = $('#couple-cost-display').text().replace(' per session', '').replace('$', '');
-                                                const paymentMethods = $('#payment-methods-display span').map(function() {
-                                                    return $(this).text();
-                                                }).get().join(', ');
+                                        // Update displayed values in qualifications section
+                                        document.getElementById('displayMentalHealthRole').innerText = mentalHealthRole;
+                                        document.getElementById('displayCredentialType').innerText = credentialType;
+                                        document.getElementById('displayLicenseState').innerText = licenseState;
+                                        document.getElementById('displayLicenseNumber').innerText = licenseNumber;
+                                        document.getElementById('displayLicenseExpirationDate').innerText = licenseExpirationDate;
+                                        document.getElementById('displayEducation').innerText = education;
+                                        document.getElementById('displayDegree').innerText = degree;
+                                        document.getElementById('displayYearGraduated').innerText = yearGraduated;
+                                        document.getElementById('displayYearBeginPractice').innerText = yearBeginPractice;
+                                        document.getElementById('displayAdditionalCredentials').innerText = additionalCredentials;
                                     
-                                                // Set the values in the modal input fields
-                                                $('#individual-cost').val(individualCost);
-                                                $('#couple-cost').val(coupleCost);
-                                                $('#payment-methods').val(paymentMethods);
-                                            });
+                                        // Save data to localStorage for persistence
+                                        localStorage.setItem('mentalHealthRole', mentalHealthRole);
+                                        localStorage.setItem('credentialType', credentialType);
+                                        localStorage.setItem('licenseState', licenseState);
+                                        localStorage.setItem('licenseNumber', licenseNumber);
+                                        localStorage.setItem('licenseExpirationDate', licenseExpirationDate);
+                                        localStorage.setItem('education', education);
+                                        localStorage.setItem('degree', degree);
+                                        localStorage.setItem('yearGraduated', yearGraduated);
+                                        localStorage.setItem('yearBeginPractice', yearBeginPractice);
+                                        localStorage.setItem('additionalCredentials', additionalCredentials);
                                     
-                                            // Save changes button click event for fees and payment methods
-                                            $('#save-finances-changes').click(function() {
-                                                const updatedIndividualCost = $('#individual-cost').val();
-                                                const updatedCoupleCost = $('#couple-cost').val();
-                                                const updatedPaymentMethods = $('#payment-methods').val().split(', ').map(function(method) {
-                                                    return '<span>' + method + '</span>';
-                                                }).join(' <span style="margin-left: 100px"></span> ');
-                                    
-                                                // Update the displayed values
-                                                $('#individual-cost-display').text('$' + updatedIndividualCost + ' per session');
-                                                $('#couple-cost-display').text('$' + updatedCoupleCost + ' per session');
-                                                $('#payment-methods-display').html(updatedPaymentMethods);
-                                    
-                                                // Close the modal
-                                                $('#editFinancesModal').modal('hide');
-                                            });
-                                        });
+                                        // Close the modal after saving
+                                        let modal = bootstrap.Modal.getInstance(document.getElementById('editQualificationsModal'));
+                                        modal.hide();
+                                    });
                                     </script>
-
-                                  <!-- Qualifications Section -->
-<div id="qualifications" class="bio-section d-none">
-    <h5>
-        <strong>Qualifications:</strong>
-        <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#editQualificationsModal" style="padding: 0; margin-right: 10px; margin-left: 50%;">
-            <i class="fas fa-edit"></i> Edit
-        </button>
-    </h5>
-
-    <h5><i class="fas fa-certificate"></i> <strong>Primary Credential</strong></h5>
-    <p><strong>Mental Health Role:</strong> Psychologist</p>
-    <p><strong>Credential Type:</strong> License</p>
-    <p><strong>License State:</strong> USA, New York</p>
-    <p><strong>License Number:</strong> PSO270803</p>
-    <p><strong>License Expiration Date:</strong> 25-10</p>
-    <hr>
-
-    <h5><i class="fas fa-graduation-cap"></i> <strong>Education and Years in Practice</strong></h5>
-    <p><strong>Education:</strong> Boston College</p>
-    <p><strong>Degree/Diploma:</strong> MSW</p>
-    <p><strong>Year Graduated:</strong> 2018</p>
-    <p><strong>Year I Begin Practice:</strong> 2019</p>
-    <hr>
-
-    <h5><i class="fas fa-award"></i> <strong>Additional Credentials</strong></h5>
-    <p><strong>Degree/Diploma:</strong> West Chester University 2024</p>
-    <p><strong>Degree/Diploma:</strong> 2024</p>
-</div>
-
-<!-- Modal for Editing Qualifications -->
-<div class="modal fade" id="editQualificationsModal" tabindex="-1" aria-labelledby="editQualificationsModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editQualificationsModalLabel">Edit Qualifications</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="qualificationsForm">
-                    <div class="mb-3">
-                        <label for="mentalHealthRole" class="form-label">Mental Health Role</label>
-                        <input type="text" class="form-control" id="mentalHealthRole" value="Psychologist">
-                    </div>
-                    <div class="mb-3">
-                        <label for="credentialType" class="form-label">Credential Type</label>
-                        <input type="text" class="form-control" id="credentialType" value="License">
-                    </div>
-                    <div class="mb-3">
-                        <label for="licenseState" class="form-label">License State</label>
-                        <input type="text" class="form-control" id="licenseState" value="USA, New York">
-                    </div>
-                    <div class="mb-3">
-                        <label for="licenseNumber" class="form-label">License Number</label>
-                        <input type="text" class="form-control" id="licenseNumber" value="PSO270803">
-                    </div>
-                    <div class="mb-3">
-                        <label for="licenseExpirationDate" class="form-label">License Expiration Date</label>
-                        <input type="text" class="form-control" id="licenseExpirationDate" value="25-10">
-                    </div>
-                    <div class="mb-3">
-                        <label for="education" class="form-label">Education</label>
-                        <input type="text" class="form-control" id="education" value="Boston College">
-                    </div>
-                    <div class="mb-3">
-                        <label for="degree" class="form-label">Degree/Diploma</label>
-                        <input type="text" class="form-control" id="degree" value="MSW">
-                    </div>
-                    <div class="mb-3">
-                        <label for="yearGraduated" class="form-label">Year Graduated</label>
-                        <input type="text" class="form-control" id="yearGraduated" value="2018">
-                    </div>
-                    <div class="mb-3">
-                        <label for="yearBeginPractice" class="form-label">Year I Begin Practice</label>
-                        <input type="text" class="form-control" id="yearBeginPractice" value="2019">
-                    </div>
-                    <div class="mb-3">
-                        <label for="additionalCredentials" class="form-label">Additional Credentials</label>
-                        <input type="text" class="form-control" id="additionalCredentials" value="West Chester University 2024">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="saveQualifications">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>document.getElementById('saveQualifications').addEventListener('click', function() {
-    // Get values from the form
-    const mentalHealthRole = document.getElementById('mentalHealthRole').value;
-    const credentialType = document.getElementById('credentialType').value;
-    const licenseState = document.getElementById('licenseState').value;
-    const licenseNumber = document.getElementById('licenseNumber').value;
-    const licenseExpirationDate = document.getElementById('licenseExpirationDate').value;
-    const education = document.getElementById('education').value;
-    const degree = document.getElementById('degree').value;
-    const yearGraduated = document.getElementById('yearGraduated').value;
-    const yearBeginPractice = document.getElementById('yearBeginPractice').value;
-    const additionalCredentials = document.getElementById('additionalCredentials').value;
-
-    // Here, you would typically send the data to your server using an AJAX request or fetch API
-    // For demonstration purposes, we'll just log it
-    console.log({
-        mentalHealthRole,
-        credentialType,
-        licenseState,
-        licenseNumber,
-        licenseExpirationDate,
-        education,
-        degree,
-        yearGraduated,
-        yearBeginPractice,
-        additionalCredentials
-    });
-
-    // Close the modal after saving
-    $('#editQualificationsModal').modal('hide');
-});
-
-</script>
-
+                                    
+                                
 <!-- Specialties Section -->
 <div id="specialties" class="bio-section d-none">
     <h5>
