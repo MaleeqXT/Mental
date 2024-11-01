@@ -655,149 +655,226 @@
                                         });
                                     </script>
                                                    <!-- Qualifications Section -->
-                                  <div id="qualifications" class="bio-section d-none">
-                                    <h5>
-                                        <strong>Qualifications:</strong>
-                                        <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#editQualificationsModal" style="padding: 0; margin-right: 10px; margin-left: 50%;">
-                                            <i class="fas fa-edit"></i> Edit
-                                        </button>
-                                    </h5>
-                                    <h5><i class="fas fa-certificate"></i> <strong>Primary Credential</strong></h5>
-                                    <p><strong>Mental Health Role:</strong> <span id="displayMentalHealthRole">Psychologist</span></p>
-                                    <p><strong>Credential Type:</strong> <span id="displayCredentialType">License</span></p>
-                                    <p><strong>License State:</strong> <span id="displayLicenseState">USA, New York</span></p>
-                                    <p><strong>License Number:</strong> <span id="displayLicenseNumber">PSO270803</span></p>
-                                    <p><strong>License Expiration Date:</strong> <span id="displayLicenseExpirationDate">25-10</span></p>
-                                    <hr>
-                                    <h5><i class="fas fa-graduation-cap"></i> <strong>Education and Years in Practice</strong></h5>
-                                    <p><strong>Education:</strong> <span id="displayEducation">Boston College</span></p>
-                                    <p><strong>Degree/Diploma:</strong> <span id="displayDegree">MSW</span></p>
-                                    <p><strong>Year Graduated:</strong> <span id="displayYearGraduated">2018</span></p>
-                                    <p><strong>Year I Begin Practice:</strong> <span id="displayYearBeginPractice">2019</span></p>
-                                    <hr>
-                                    <h5><i class="fas fa-award"></i> <strong>Additional Credentials</strong></h5>
-                                    <p><span id="displayAdditionalCredentials">West Chester University 2024</span></p>
-                                </div>
-                                
-                                <!-- Modal for Editing Qualifications -->
-                                <div class="modal fade" id="editQualificationsModal" tabindex="-1" aria-labelledby="editQualificationsModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="editQualificationsModalLabel">Edit Qualifications</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form id="qualificationsForm">
-                                                    <div class="mb-3">
-                                                        <label for="mentalHealthRole" class="form-label">Mental Health Role</label>
-                                                        <input type="text" class="form-control" id="mentalHealthRole" value="Psychologist">
+                                                   <div id="qualifications" class="bio-section d-none">
+                                                    <h5>
+                                                        <strong>Qualifications:</strong>
+                                                    </h5>
+                                                
+                                                    <!-- Primary Credential Section -->
+                                                    <h5>
+                                                        <i class="fas fa-certificate"></i>
+                                                        <strong>Primary Credential</strong>
+                                                        <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#editPrimaryCredentialModal" style="padding: 0; margin-left: 10px;">
+                                                            <i class="fas fa-edit"></i> Edit
+                                                        </button>
+                                                    </h5>
+                                                    <p><strong>Mental Health Role:</strong> <span id="displayMentalHealthRole">Psychologist</span></p>
+                                                    <p><strong>Credential Type:</strong> <span id="displayCredentialType">License</span></p>
+                                                    <p><strong>License State:</strong> <span id="displayLicenseState">USA, New York</span></p>
+                                                    <p><strong>License Number:</strong> <span id="displayLicenseNumber">PSO270803</span></p>
+                                                    <p><strong>License Expiration Date:</strong> <span id="displayLicenseExpirationDate">25-10</span></p>
+                                                    <hr>
+                                                
+                                                    <!-- Education and Years in Practice Section -->
+                                                    <h5>
+                                                        <i class="fas fa-graduation-cap"></i>
+                                                        <strong>Education and Years in Practice</strong>
+                                                        <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#editEducationModal" style="padding: 0; margin-left: 10px;">
+                                                            <i class="fas fa-edit"></i> Edit
+                                                        </button>
+                                                    </h5>
+                                                    <p><strong>Education:</strong> <span id="displayEducation">Boston College</span></p>
+                                                    <p><strong>Degree/Diploma:</strong> <span id="displayDegree">MSW</span></p>
+                                                    <p><strong>Year Graduated:</strong> <span id="displayYearGraduated">2018</span></p>
+                                                    <p><strong>Year I Begin Practice:</strong> <span id="displayYearBeginPractice">2019</span></p>
+                                                    <hr>
+                                                
+                                                    <!-- Additional Credentials Section -->
+                                                    <h5>
+                                                        <i class="fas fa-award"></i>
+                                                        <strong>Additional Credentials</strong>
+                                                        <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#editAdditionalCredentialsModal" style="padding: 0; margin-left: 10px;">
+                                                            <i class="fas fa-edit"></i> Edit
+                                                        </button>
+                                                    </h5>
+                                                    <p><span id="displayAdditionalCredentials">West Chester University 2024</span></p>
+                                                </div>
+                                                
+                                                <!-- Modal for Editing Primary Credential -->
+                                                <div class="modal fade" id="editPrimaryCredentialModal" tabindex="-1" aria-labelledby="editPrimaryCredentialModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="editPrimaryCredentialModalLabel">Edit Primary Credential</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form id="primaryCredentialForm">
+                                                                    <div class="mb-3">
+                                                                        <label for="mentalHealthRole" class="form-label">Mental Health Role</label>
+                                                                        <input type="text" class="form-control" id="mentalHealthRole" value="Psychologist">
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="credentialType" class="form-label">Credential Type</label>
+                                                                        <input type="text" class="form-control" id="credentialType" value="License">
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="licenseState" class="form-label">License State</label>
+                                                                        <input type="text" class="form-control" id="licenseState" value="USA, New York">
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="licenseNumber" class="form-label">License Number</label>
+                                                                        <input type="text" class="form-control" id="licenseNumber" value="PSO270803">
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="licenseExpirationDate" class="form-label">License Expiration Date</label>
+                                                                        <input type="text" class="form-control" id="licenseExpirationDate" value="25-10">
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                <button type="button" class="btn btn-primary" id="savePrimaryCredential">Save changes</button>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div class="mb-3">
-                                                        <label for="credentialType" class="form-label">Credential Type</label>
-                                                        <input type="text" class="form-control" id="credentialType" value="License">
+                                                </div>
+                                                
+                                                <!-- Modal for Editing Education -->
+                                                <div class="modal fade" id="editEducationModal" tabindex="-1" aria-labelledby="editEducationModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="editEducationModalLabel">Edit Education</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form id="educationForm">
+                                                                    <div class="mb-3">
+                                                                        <label for="education" class="form-label">Education</label>
+                                                                        <input type="text" class="form-control" id="education" value="Boston College">
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="degree" class="form-label">Degree/Diploma</label>
+                                                                        <input type="text" class="form-control" id="degree" value="MSW">
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="yearGraduated" class="form-label">Year Graduated</label>
+                                                                        <input type="text" class="form-control" id="yearGraduated" value="2018">
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="yearBeginPractice" class="form-label">Year I Begin Practice</label>
+                                                                        <input type="text" class="form-control" id="yearBeginPractice" value="2019">
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                <button type="button" class="btn btn-primary" id="saveEducation">Save changes</button>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div class="mb-3">
-                                                        <label for="licenseState" class="form-label">License State</label>
-                                                        <input type="text" class="form-control" id="licenseState" value="USA, New York">
+                                                </div>
+                                                
+                                                <!-- Modal for Editing Additional Credentials -->
+                                                <div class="modal fade" id="editAdditionalCredentialsModal" tabindex="-1" aria-labelledby="editAdditionalCredentialsModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="editAdditionalCredentialsModalLabel">Edit Additional Credentials</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form id="additionalCredentialsForm">
+                                                                    <div class="mb-3">
+                                                                        <label for="additionalCredentials" class="form-label">Additional Credentials</label>
+                                                                        <input type="text" class="form-control" id="additionalCredentials" value="West Chester University 2024">
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                <button type="button" class="btn btn-primary" id="saveAdditionalCredentials">Save changes</button>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div class="mb-3">
-                                                        <label for="licenseNumber" class="form-label">License Number</label>
-                                                        <input type="text" class="form-control" id="licenseNumber" value="PSO270803">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="licenseExpirationDate" class="form-label">License Expiration Date</label>
-                                                        <input type="text" class="form-control" id="licenseExpirationDate" value="25-10">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="education" class="form-label">Education</label>
-                                                        <input type="text" class="form-control" id="education" value="Boston College">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="degree" class="form-label">Degree/Diploma</label>
-                                                        <input type="text" class="form-control" id="degree" value="MSW">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="yearGraduated" class="form-label">Year Graduated</label>
-                                                        <input type="text" class="form-control" id="yearGraduated" value="2018">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="yearBeginPractice" class="form-label">Year I Begin Practice</label>
-                                                        <input type="text" class="form-control" id="yearBeginPractice" value="2019">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="additionalCredentials" class="form-label">Additional Credentials</label>
-                                                        <input type="text" class="form-control" id="additionalCredentials" value="West Chester University 2024">
-                                                    </div>
-                                                </form>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-primary" id="saveQualifications">Save changes</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <script>
-                                    document.addEventListener('DOMContentLoaded', function() {
-                                        // Load saved values from localStorage if available
-                                        if (localStorage.getItem('mentalHealthRole')) {
-                                            document.getElementById('displayMentalHealthRole').innerText = localStorage.getItem('mentalHealthRole');
-                                            document.getElementById('displayCredentialType').innerText = localStorage.getItem('credentialType');
-                                            document.getElementById('displayLicenseState').innerText = localStorage.getItem('licenseState');
-                                            document.getElementById('displayLicenseNumber').innerText = localStorage.getItem('licenseNumber');
-                                            document.getElementById('displayLicenseExpirationDate').innerText = localStorage.getItem('licenseExpirationDate');
-                                            document.getElementById('displayEducation').innerText = localStorage.getItem('education');
-                                            document.getElementById('displayDegree').innerText = localStorage.getItem('degree');
-                                            document.getElementById('displayYearGraduated').innerText = localStorage.getItem('yearGraduated');
-                                            document.getElementById('displayYearBeginPractice').innerText = localStorage.getItem('yearBeginPractice');
-                                            document.getElementById('displayAdditionalCredentials').innerText = localStorage.getItem('additionalCredentials');
-                                        }
-                                    });
-                                    
-                                    document.getElementById('saveQualifications').addEventListener('click', function() {
-                                        // Get values from the form
-                                        const mentalHealthRole = document.getElementById('mentalHealthRole').value;
-                                        const credentialType = document.getElementById('credentialType').value;
-                                        const licenseState = document.getElementById('licenseState').value;
-                                        const licenseNumber = document.getElementById('licenseNumber').value;
-                                        const licenseExpirationDate = document.getElementById('licenseExpirationDate').value;
-                                        const education = document.getElementById('education').value;
-                                        const degree = document.getElementById('degree').value;
-                                        const yearGraduated = document.getElementById('yearGraduated').value;
-                                        const yearBeginPractice = document.getElementById('yearBeginPractice').value;
-                                        const additionalCredentials = document.getElementById('additionalCredentials').value;
-                                    
-                                        // Update displayed values in qualifications section
-                                        document.getElementById('displayMentalHealthRole').innerText = mentalHealthRole;
-                                        document.getElementById('displayCredentialType').innerText = credentialType;
-                                        document.getElementById('displayLicenseState').innerText = licenseState;
-                                        document.getElementById('displayLicenseNumber').innerText = licenseNumber;
-                                        document.getElementById('displayLicenseExpirationDate').innerText = licenseExpirationDate;
-                                        document.getElementById('displayEducation').innerText = education;
-                                        document.getElementById('displayDegree').innerText = degree;
-                                        document.getElementById('displayYearGraduated').innerText = yearGraduated;
-                                        document.getElementById('displayYearBeginPractice').innerText = yearBeginPractice;
-                                        document.getElementById('displayAdditionalCredentials').innerText = additionalCredentials;
-                                    
-                                        // Save data to localStorage for persistence
-                                        localStorage.setItem('mentalHealthRole', mentalHealthRole);
-                                        localStorage.setItem('credentialType', credentialType);
-                                        localStorage.setItem('licenseState', licenseState);
-                                        localStorage.setItem('licenseNumber', licenseNumber);
-                                        localStorage.setItem('licenseExpirationDate', licenseExpirationDate);
-                                        localStorage.setItem('education', education);
-                                        localStorage.setItem('degree', degree);
-                                        localStorage.setItem('yearGraduated', yearGraduated);
-                                        localStorage.setItem('yearBeginPractice', yearBeginPractice);
-                                        localStorage.setItem('additionalCredentials', additionalCredentials);
-                                    
-                                        // Close the modal after saving
-                                        let modal = bootstrap.Modal.getInstance(document.getElementById('editQualificationsModal'));
-                                        modal.hide();
-                                    });
-                                    </script>
+                                                </div>
+                                                
+                                                <script>
+                                                    document.addEventListener('DOMContentLoaded', function() {
+                                                        // Load saved values from localStorage if available
+                                                        if (localStorage.getItem('mentalHealthRole')) {
+                                                            document.getElementById('displayMentalHealthRole').innerText = localStorage.getItem('mentalHealthRole');
+                                                            document.getElementById('displayCredentialType').innerText = localStorage.getItem('credentialType');
+                                                            document.getElementById('displayLicenseState').innerText = localStorage.getItem('licenseState');
+                                                            document.getElementById('displayLicenseNumber').innerText = localStorage.getItem('licenseNumber');
+                                                            document.getElementById('displayLicenseExpirationDate').innerText = localStorage.getItem('licenseExpirationDate');
+                                                            document.getElementById('displayEducation').innerText = localStorage.getItem('education');
+                                                            document.getElementById('displayDegree').innerText = localStorage.getItem('degree');
+                                                            document.getElementById('displayYearGraduated').innerText = localStorage.getItem('yearGraduated');
+                                                            document.getElementById('displayYearBeginPractice').innerText = localStorage.getItem('yearBeginPractice');
+                                                            document.getElementById('displayAdditionalCredentials').innerText = localStorage.getItem('additionalCredentials');
+                                                        }
+                                                    });
+                                                
+                                                    // Save Primary Credential
+                                                    document.getElementById('savePrimaryCredential').addEventListener('click', function() {
+                                                        const mentalHealthRole = document.getElementById('mentalHealthRole').value;
+                                                        const credentialType = document.getElementById('credentialType').value;
+                                                        const licenseState = document.getElementById('licenseState').value;
+                                                        const licenseNumber = document.getElementById('licenseNumber').value;
+                                                        const licenseExpirationDate = document.getElementById('licenseExpirationDate').value;
+                                                
+                                                        document.getElementById('displayMentalHealthRole').innerText = mentalHealthRole;
+                                                        document.getElementById('displayCredentialType').innerText = credentialType;
+                                                        document.getElementById('displayLicenseState').innerText = licenseState;
+                                                        document.getElementById('displayLicenseNumber').innerText = licenseNumber;
+                                                        document.getElementById('displayLicenseExpirationDate').innerText = licenseExpirationDate;
+                                                
+                                                        localStorage.setItem('mentalHealthRole', mentalHealthRole);
+                                                        localStorage.setItem('credentialType', credentialType);
+                                                        localStorage.setItem('licenseState', licenseState);
+                                                        localStorage.setItem('licenseNumber', licenseNumber);
+                                                        localStorage.setItem('licenseExpirationDate', licenseExpirationDate);
+                                                
+                                                        let modal = bootstrap.Modal.getInstance(document.getElementById('editPrimaryCredentialModal'));
+                                                        modal.hide();
+                                                    });
+                                                
+                                                    // Save Education
+                                                    document.getElementById('saveEducation').addEventListener('click', function() {
+                                                        const education = document.getElementById('education').value;
+                                                        const degree = document.getElementById('degree').value;
+                                                        const yearGraduated = document.getElementById('yearGraduated').value;
+                                                        const yearBeginPractice = document.getElementById('yearBeginPractice').value;
+                                                
+                                                        document.getElementById('displayEducation').innerText = education;
+                                                        document.getElementById('displayDegree').innerText = degree;
+                                                        document.getElementById('displayYearGraduated').innerText = yearGraduated;
+                                                        document.getElementById('displayYearBeginPractice').innerText = yearBeginPractice;
+                                                
+                                                        localStorage.setItem('education', education);
+                                                        localStorage.setItem('degree', degree);
+                                                        localStorage.setItem('yearGraduated', yearGraduated);
+                                                        localStorage.setItem('yearBeginPractice', yearBeginPractice);
+                                                
+                                                        let modal = bootstrap.Modal.getInstance(document.getElementById('editEducationModal'));
+                                                        modal.hide();
+                                                    });
+                                                
+                                                    // Save Additional Credentials
+                                                    document.getElementById('saveAdditionalCredentials').addEventListener('click', function() {
+                                                        const additionalCredentials = document.getElementById('additionalCredentials').value;
+                                                
+                                                        document.getElementById('displayAdditionalCredentials').innerText = additionalCredentials;
+                                                
+                                                        localStorage.setItem('additionalCredentials', additionalCredentials);
+                                                
+                                                        let modal = bootstrap.Modal.getInstance(document.getElementById('editAdditionalCredentialsModal'));
+                                                        modal.hide();
+                                                    });
+                                                </script>
+                                                
                                     
                                 
 <!-- Specialties Section -->
