@@ -71,10 +71,21 @@
                                     <div id="personalInfo" class="bio-section">
                                         <div class="d-flex align-items-center justify-content-between mb-4">
                                             <div class="d-flex align-items-center">
-                                                <img src="{{ asset(auth()->user()->image) }}" alt="Profile Image" class="rounded-circle" width="80" height="80">
+                                                <img src="{{ asset(auth()->user()->image) }}" alt="Profile Image" class="rounded" width="80" height="80">
                                                 <div class="ms-3">
-                                                    <h4 class="font-size-24 mb-0">{{ auth()->user()->name }}</h4>
-                                                    <p class="text-muted mb-0" id="user-title">{{ auth()->user()->title ?? 'Senior Software Engineer' }}</p>
+                                                    <h2>
+                                                        <span class="me-2">Hasnain</span>, <!-- First Name -->
+                                                        <span class="me-2">Khan</span>     <!-- Last Name -->
+                                                        
+                                                    </h2>
+                                                    <p class="text-muted mb-0">
+                                                        <i class="fas fa-user-md me-2"></i> <!-- Icon added here -->
+                                                        Psychologist, LCSW
+                                                    </p>
+                                                    <p class="text-muted mb-0" id="user-title">
+                                                        <i class="fas fa-thumbs-up me-1"></i> <!-- Like icon added here -->
+                                                        {{ auth()->user()->title ?? 'Senior Software Engineer' }}
+                                                    </p>
                                                 </div>
                                             </div>
                                             
@@ -82,78 +93,363 @@
                                                 <i class="fas fa-edit"></i> Edit
                                             </button>
                                         </div>
+
+                                        <!-- Edit Modal Structure -->
+        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel">Edit Personal Information</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="first_name" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="first_name" value="{{ auth()->user()->first_name ?? '' }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="last_name" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="last_name" value="{{ auth()->user()->last_name ?? '' }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="title" value="{{ auth()->user()->title ?? 'Psychologist, LCSW' }}">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button id="saveChanges" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $(document).ready(function() {
+                // Handle save changes button click
+                $('#saveChanges').on('click', function() {
+                    // Gather data from inputs
+                    const firstName = $('#first_name').val();
+                    const lastName = $('#last_name').val();
+                    const title = $('#title').val();
+
+                    $.ajax({
+                        url: "{{ route('profile.update') }}", // Use the update route
+                        type: 'POST',
+                        data: {
+                            _token: '{{ csrf_token() }}', // Include CSRF token
+                            first_name: firstName,
+                            last_name: lastName,
+                            title: title
+                        },
+                        success: function(response) {
+                            // Update personal info without reloading
+                            $('#user-first-name').text(response.first_name); // Update First Name
+                            $('#user-last-name').text(response.last_name); // Update Last Name
+                            $('#user-title').text(response.title); // Update Title
+
+                            // Close the modal
+                            $('#editModal').modal('hide');
+                        },
+                        error: function(xhr) {
+                            console.error(xhr.responseText); // Log any error messages
+                            alert("An error occurred. Please try again."); // Notify the user of the error
+                        }
+                    });
+                });
+
+                // Reset the modal fields when it is hidden
+                $('#editModal').on('hidden.bs.modal', function() {
+                    $(this).find('input').val(''); // Clear input fields
+                });
+            });
+        </script>
+                                    <hr>
                                     
-                                        <p id="user-bio">{{ auth()->user()->bio ?? 'Senior Software Full Time Developer' }}</p>
-                                        <h5><strong>Contact Information:</strong></h5>
-                                        <p>Email: {{ auth()->user()->email }}</p>
-                                        <p>Phone: <span id="user-phone">{{ auth()->user()->phone ?? '+123 456 7890' }}</span></p>
+
+
+                                    <!-- Personal Statement Section -->
+<div id="personal-statement" class="bio-section">
+    <h5>
+        <i class="fas fa-file-alt"></i> 
+        <strong>Personal Statement:</strong>
+        <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#editPersonalStatementModal" style="padding: 0; margin-left: 10px;">
+            <i class="fas fa-edit"></i> Edit
+        </button>
+    </h5>
+    <p id="user-bio">
+        {{ auth()->user()->bio ?? 'As a Senior Software Developer with over 8 years of experience in designing and implementing robust software solutions, I am passionate about leveraging technology to solve complex problems and improve user experiences. My expertise spans various programming languages, including PHP, JavaScript, and Python, with a strong emphasis on Laravel and React frameworks.' }}
+    </p>
+</div>
+
+<!-- Modal for Editing Personal Statement -->
+<div class="modal fade" id="editPersonalStatementModal" tabindex="-1" aria-labelledby="editPersonalStatementModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editPersonalStatementModalLabel">Edit Personal Statement</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="personalStatementForm">
+                    <div class="mb-3">
+                        <label for="personalStatementInput" class="form-label">Your Personal Statement</label>
+                        <textarea class="form-control" id="personalStatementInput" rows="5">{{ auth()->user()->bio ?? 'As a Senior Software Developer with over 8 years of experience in designing and implementing robust software solutions, I am passionate about leveraging technology to solve complex problems and improve user experiences. My expertise spans various programming languages, including PHP, JavaScript, and Python, with a strong emphasis on Laravel and React frameworks.' }}</textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="savePersonalStatement">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Open the modal and populate the textarea
+        $('#editPersonalStatementModal').on('show.bs.modal', function () {
+            const bio = document.getElementById('user-bio').textContent;
+            document.getElementById('personalStatementInput').value = bio;
+        });
+
+        // Save changes to the personal statement
+        document.getElementById('savePersonalStatement').addEventListener('click', function () {
+            const updatedBio = document.getElementById('personalStatementInput').value;
+            document.getElementById('user-bio').textContent = updatedBio;
+
+            // Optionally, here you can add an AJAX request to save the changes to the server
+
+            // Close the modal after saving
+            $('#editPersonalStatementModal').modal('hide');
+        });
+    });
+</script>
+<hr>
+<!-- Identity Section -->
+<div id="identity" class="bio-section">
+    <h5>
+        <i class="fas fa-user"></i> 
+        <strong>Identity</strong>
+        <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#editIdentityModal" style="padding: 0; margin-left: 10px;">
+            <i class="fas fa-edit"></i> Edit
+        </button>
+    </h5>
+    <p><strong>Age:</strong> <span id="user-age">30</span></p>
+    <p><strong>Gender:</strong> <span id="user-gender">Male</span></p>
+    <p><strong>Faith:</strong> <span id="user-faith">Christianity</span></p>
+</div>
+
+<!-- Modal for Editing Identity -->
+<div class="modal fade" id="editIdentityModal" tabindex="-1" aria-labelledby="editIdentityModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editIdentityModalLabel">Edit Identity</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="identityForm">
+                    <div class="mb-3">
+                        <label for="ageInput" class="form-label">Age</label>
+                        <input type="number" class="form-control" id="ageInput" value="30" min="0" max="120">
+                    </div>
+                    <div class="mb-3">
+                        <label for="genderSelect" class="form-label">Gender</label>
+                        <select class="form-select" id="genderSelect">
+                            <option value="Male" selected>Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="faithInput" class="form-label">Faith</label>
+                        <input type="text" class="form-control" id="faithInput" value="Christianity">
+                    </div>
+                    <div class="mb-3">
+                        <label for="dobMonthInput" class="form-label">Date of Birth</label>
+                        <div class="row">
+                            <div class="col">
+                                <select class="form-select" id="dobMonthInput">
+                                    <option value="" disabled selected>Month</option>
+                                    <option value="1">January</option>
+                                    <option value="2">February</option>
+                                    <option value="3">March</option>
+                                    <option value="4">April</option>
+                                    <option value="5">May</option>
+                                    <option value="6">June</option>
+                                    <option value="7">July</option>
+                                    <option value="8">August</option>
+                                    <option value="9">September</option>
+                                    <option value="10">October</option>
+                                    <option value="11">November</option>
+                                    <option value="12">December</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <select class="form-select" id="dobDayInput">
+                                    <option value="" disabled selected>Day</option>
+                                    <!-- Days 1 to 31 -->
+                                    ${Array.from({length: 31}, (_, i) => `<option value="${i + 1}">${i + 1}</option>`).join('')}
+                                </select>
+                            </div>
+                            <div class="col">
+                                <select class="form-select" id="dobYearInput">
+                                    <option value="" disabled selected>Year</option>
+                                    <!-- Years from 1900 to current year -->
+                                    ${Array.from({length: (new Date().getFullYear() - 1900 + 1)}, (_, i) => `<option value="${1900 + i}">${1900 + i}</option>`).join('')}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="saveIdentity">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Save changes for identity
+        document.getElementById('saveIdentity').addEventListener('click', function () {
+            // Get values from the form
+            const age = document.getElementById('ageInput').value;
+            const gender = document.getElementById('genderSelect').value;
+            const faith = document.getElementById('faithInput').value;
+
+            // Update the displayed identity information
+            document.getElementById('user-age').textContent = age;
+            document.getElementById('user-gender').textContent = gender;
+            document.getElementById('user-faith').textContent = faith;
+
+            // Optionally, handle the date of birth inputs here
+            const dobMonth = document.getElementById('dobMonthInput').value;
+            const dobDay = document.getElementById('dobDayInput').value;
+            const dobYear = document.getElementById('dobYearInput').value;
+            const dob = `${dobMonth}/${dobDay}/${dobYear}`; // Format as MM/DD/YYYY
+            console.log('Date of Birth:', dob); // You can use this value as needed
+
+            // Close the modal after saving
+            $('#editIdentityModal').modal('hide');
+        });
+    });
+</script>
+
+                                        <hr>
+                                        <!-- Phone Section -->
+<div id="phone" class="bio-section">
+    <h5>
+        <i class="fas fa-phone-alt"></i> 
+        <strong>Phone</strong>
+        <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#editPhoneModal" style="padding: 0; margin-left: 10px;">
+            <i class="fas fa-edit"></i> Edit
+        </button>
+    </h5>
+    <p>Phone: <span id="user-phone">{{ auth()->user()->phone ?? '+123 456 7890' }}</span></p>
+</div>
+
+<!-- Modal for Editing Phone -->
+<div class="modal fade" id="editPhoneModal" tabindex="-1" aria-labelledby="editPhoneModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editPhoneModalLabel">Edit Phone Number</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="phoneForm">
+                    <div class="mb-3">
+                        <label for="phoneInput" class="form-label">Phone Number</label>
+                        <input type="text" class="form-control" id="phoneInput" value="{{ auth()->user()->phone ?? '+123 456 7890' }}">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="savePhone">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Save changes for phone number
+        document.getElementById('savePhone').addEventListener('click', function () {
+            // Get the new phone number from the input
+            const newPhone = document.getElementById('phoneInput').value;
+
+            // Update the displayed phone number
+            document.getElementById('user-phone').textContent = newPhone;
+
+            // Close the modal after saving
+            $('#editPhoneModal').modal('hide');
+        });
+    });
+</script>
+<hr>
+
+<!-- Email Section -->
+<div id="email" class="bio-section">
+    <h5>
+        <i class="fas fa-envelope"></i> 
+        <strong>Email</strong>
+        <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#editEmailModal" style="padding: 0; margin-left: 10px;">
+            <i class="fas fa-edit"></i> Edit
+        </button>
+    </h5>
+    <p>Email: <span id="user-email">{{ auth()->user()->email }}</span></p>
+</div>
+
+<!-- Modal for Editing Email -->
+<div class="modal fade" id="editEmailModal" tabindex="-1" aria-labelledby="editEmailModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editEmailModalLabel">Edit Email Address</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="emailForm">
+                    <div class="mb-3">
+                        <label for="emailInput" class="form-label">Email Address</label>
+                        <input type="email" class="form-control" id="emailInput" value="{{ auth()->user()->email }}">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="saveEmail">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Save changes for email address
+        document.getElementById('saveEmail').addEventListener('click', function () {
+            // Get the new email from the input
+            const newEmail = document.getElementById('emailInput').value;
+
+            // Update the displayed email address
+            document.getElementById('user-email').textContent = newEmail;
+
+            // Close the modal after saving
+            $('#editEmailModal').modal('hide');
+        });
+    });
+</script>
+
                                     </div>
                                     
                                     <!-- Edit Modal Structure -->
-                                    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="editModalLabel">Edit Personal Information</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <form id="editForm" action="{{ route('profile.update') }}" method="POST">
-                                                    @csrf
-                                                    <div class="modal-body">
-                                                        <div class="mb-3">
-                                                            <label for="bio" class="form-label">Bio</label>
-                                                            <textarea class="form-control" id="bio" name="bio" rows="3">{{ auth()->user()->bio ?? 'Senior Software Full Time Developer' }}</textarea>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="phone" class="form-label">Phone</label>
-                                                            <input type="text" class="form-control" id="phone" name="phone" value="{{ auth()->user()->phone ?? '+123 456 7890' }}">
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="title" class="form-label">Title</label>
-                                                            <input type="text" class="form-control" id="title" name="title" value="{{ auth()->user()->title ?? 'Senior Software Engineer' }}">
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                        <button type="submit" class="btn btn-primary">Save changes</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <script>
-                                        $(document).ready(function() {
-                                            // Handle form submission
-                                            $('#editForm').on('submit', function(e) {
-                                                e.preventDefault(); // Prevent the default form submission
-                                                
-                                                $.ajax({
-                                                    url: $(this).attr('action'), // Use form action
-                                                    type: 'POST',
-                                                    data: $(this).serialize(), // Serialize the form data
-                                                    success: function(response) {
-                                                        // Update personal info without reloading
-                                                        $('#user-bio').text(response.bio);
-                                                        $('#user-phone').text(response.phone);
-                                                        $('#user-title').text(response.title);
-                                                        
-                                                        // Close the modal
-                                                        $('#editModal').modal('hide');
-                                                    },
-                                                    error: function(xhr) {
-                                                        console.error(xhr.responseText); // Log any error messages
-                                                        alert("An error occurred. Please try again."); // Notify the user of the error
-                                                    }
-                                                });
-                                            });
-                                    
-                                            // Reset the form fields when the modal is hidden
-                                            $('#editModal').on('hidden.bs.modal', function() {
-                                                $(this).find('form')[0].reset(); // Reset the form fields
-                                            });
-                                        });
-                                    </script>
+                                 
                                                                       
                                     
                                                                       <div id="finances" class="bio-section d-none">
