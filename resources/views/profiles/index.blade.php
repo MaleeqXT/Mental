@@ -524,125 +524,137 @@
                                  
                                                                       
                                     
-                                                                      <div id="finances" class="bio-section d-none">
-                                                                        <h5><strong>Finances:</strong></h5>
-                                                                        <p>John manages the financial planning and budgeting for the tech department.</p>
-                                                                    
-                                                                        <!-- Edit Button for Fees and Payment Methods -->
-                                                                        <h6>
-                                                                            <i class="fas fa-money-bill-wave"></i> Fees & Payment Methods
-                                                                            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#editFinancesModal" style="padding: 0; margin-right: 10px; margin-left: 50%;">
-                                                                                <i class="fas fa-edit"></i> Edit
-                                                                            </button>
-                                                                        </h6>
-                                                                    
-                                                                        <h6>Individual Session Cost :</h6>
-                                                                        <p id="individual-cost-display" style="color: #939a9c;">$250 per session</p>
-                                                                    
-                                                                        <h6>Couple Session Cost :</h6>
-                                                                        <p id="couple-cost-display" style="color: #939a9c;">$300 per session</p>
-                                                                        <hr>
-                                                                    
-                                                                        <h6><i class="fas fa-credit-card"></i> Payment Methods</h6>
-                                                                        <p id="payment-methods-display">
-                                                                            <span>American Express</span>
-                                                                            <span style="margin-left: 100px">Mastercard</span>
-                                                                        </p>
-                                                                        <p id="payment-methods-display-2">
-                                                                            <span>Health Savings Account</span>
-                                                                            <span style="margin-left: 100px">Visa</span>
-                                                                        </p>
-                                                                    
-                                                                        <!-- Edit Finances Modal -->
-                                                                        <div class="modal fade" id="editFinancesModal" tabindex="-1" role="dialog" aria-labelledby="editFinancesModalLabel" aria-hidden="true">
-                                                                            <div class="modal-dialog" role="document">
-                                                                                <div class="modal-content">
-                                                                                    <div class="modal-header">
-                                                                                        <h5 class="modal-title" id="editFinancesModalLabel">Edit Finances</h5>
-                                                                                    </div>
-                                                                                    <div class="modal-body">
-                                                                                        <form>
-                                                                                            <div class="form-group">
-                                                                                                <label for="individual-cost">Individual Session Cost</label>
-                                                                                                <input type="text" class="form-control" id="individual-cost">
-                                                                                            </div>
-                                                                                            <div class="form-group">
-                                                                                                <label for="couple-cost">Couple Session Cost</label>
-                                                                                                <input type="text" class="form-control" id="couple-cost">
-                                                                                            </div>
-                                                                                            <div class="form-group">
-                                                                                                <label for="payment-methods">Payment Methods (comma-separated)</label>
-                                                                                                <input type="text" class="form-control" id="payment-methods">
-                                                                                            </div>
-                                                                                        </form>
-                                                                                    </div>
-                                                                                    <div class="modal-footer">
-                                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                                        <button type="button" class="btn btn-primary" id="save-finances-changes" data-dismiss="modal">Save changes</button>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    
-                                                                    <!-- Include full version of jQuery and Bootstrap -->
-                                                                    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-                                                                    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-                                                                    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-                                                                    
-                                                                    <!-- JavaScript for Modal Functionality -->
-                                                                    <script>
-                                                                        $(document).ready(function() {
-                                                                            // Check if jQuery is loaded
-                                                                            if (typeof jQuery === "undefined") {
-                                                                                console.error("jQuery is not loaded.");
-                                                                                return;
-                                                                            }
-                                                                    
-                                                                            // Open modal and populate fields with current finance details
-                                                                            $('.btn-link[data-target="#editFinancesModal"]').click(function() {
-                                                                                console.log("Edit button clicked.");
-                                                                    
-                                                                                const individualCost = $('#individual-cost-display').text().replace(' per session', '').replace('$', '');
-                                                                                const coupleCost = $('#couple-cost-display').text().replace(' per session', '').replace('$', '');
-                                                                                const paymentMethods = $('#payment-methods-display span').map(function() {
-                                                                                    return $(this).text();
-                                                                                }).get().join(', ');
-                                                                    
-                                                                                // Set the values in the modal input fields
-                                                                                $('#individual-cost').val(individualCost);
-                                                                                $('#couple-cost').val(coupleCost);
-                                                                                $('#payment-methods').val(paymentMethods);
-                                                                            });
-                                                                    
-                                                                            // Save changes button click event for fees and payment methods
-                                                                            $('#save-finances-changes').click(function() {
-                                                                                console.log("Save changes button clicked.");
-                                                                    
-                                                                                const updatedIndividualCost = $('#individual-cost').val();
-                                                                                const updatedCoupleCost = $('#couple-cost').val();
-                                                                                const updatedPaymentMethods = $('#payment-methods').val().split(',').map(function(method) {
-                                                                                    return '<span>' + method.trim() + '</span>';
-                                                                                }).join('<span style="margin-left: 100px"></span>');
-                                                                    
-                                                                                // Debug: Log values to ensure they are captured correctly
-                                                                                console.log("Updated Individual Cost:", updatedIndividualCost);
-                                                                                console.log("Updated Couple Cost:", updatedCoupleCost);
-                                                                                console.log("Updated Payment Methods:", updatedPaymentMethods);
-                                                                    
-                                                                                // Update the displayed values
-                                                                                $('#individual-cost-display').text('$' + updatedIndividualCost + ' per session');
-                                                                                $('#couple-cost-display').text('$' + updatedCoupleCost + ' per session');
-                                                                                $('#payment-methods-display').html(updatedPaymentMethods);
-                                                                    
-                                                                                // Make the finance section visible
-                                                                                $('#finances').removeClass('d-none');
-                                                                    
-                                                                                // Close the modal
-                                                                                $('#editFinancesModal').modal('hide');
-                                                                            });
-                                                                        });
-                                                                    </script>               <!-- Qualifications Section -->
+                                    <div id="finances" class="bio-section d-none">
+                                        <h5><strong>Finances:</strong></h5>
+                                        <p>John manages the financial planning and budgeting for the tech department.</p>
+                                        
+                                        <!-- Edit Button for Fees -->
+                                        <h6>
+                                            <i class="fas fa-money-bill-wave"></i> Fees
+                                            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#editFeesModal" style="padding: 0; margin-right: 10px; margin-left: 50%;">
+                                                <i class="fas fa-edit"></i> Edit
+                                            </button>
+                                        </h6>
+                                        <h6>Individual Session Cost :</h6>
+                                        <p id="individual-cost-display" style="color: #939a9c;">$250 per session</p>
+                                        <h6>Couple Session Cost :</h6>
+                                        <p id="couple-cost-display" style="color: #939a9c;">$300 per session</p>
+                                        <hr>
+                                        
+                                        <!-- Payment Methods Section -->
+                                        <h6><i class="fas fa-credit-card"></i> Payment Methods
+                                            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#editPaymentMethodsModal" style="padding: 0; margin-left: 50%;">
+                                                <i class="fas fa-edit"></i> Edit
+                                            </button>
+                                        </h6>
+                                        <p id="payment-methods-display">
+                                            <span>American Express</span>
+                                            <span style="margin-left: 100px">Mastercard</span>
+                                        </p>
+                                        <p id="payment-methods-display-2">
+                                            <span>Health Savings Account</span>
+                                            <span style="margin-left: 100px">Visa</span>
+                                        </p>
+                                    </div>
+                                    
+                                    <!-- Edit Fees Modal -->
+                                    <div class="modal fade" id="editFeesModal" tabindex="-1" role="dialog" aria-labelledby="editFeesModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="editFeesModalLabel">Edit Fees</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form>
+                                                        <div class="form-group">
+                                                            <label for="individual-cost">Individual Session Cost</label>
+                                                            <input type="text" class="form-control" id="individual-cost">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="couple-cost">Couple Session Cost</label>
+                                                            <input type="text" class="form-control" id="couple-cost">
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-primary" id="save-fees-changes" data-dismiss="modal">Save changes</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Edit Payment Methods Modal -->
+                                    <div class="modal fade" id="editPaymentMethodsModal" tabindex="-1" role="dialog" aria-labelledby="editPaymentMethodsModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="editPaymentMethodsModalLabel">Edit Payment Methods</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form>
+                                                        <div class="form-group">
+                                                            <label for="payment-methods">Payment Methods (comma-separated)</label>
+                                                            <input type="text" class="form-control" id="payment-methods">
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-primary" id="save-payment-methods-changes" data-dismiss="modal">Save changes</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- jQuery and Bootstrap JS -->
+                                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                                    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+                                    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+                                    <!-- Font Awesome for Icons -->
+                                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+                                    <!-- JavaScript to Handle Modal Data -->
+                                    <script>
+                                        $(document).ready(function() {
+                                            // Populate Fees Modal with current values
+                                            $('.btn-link[data-target="#editFeesModal"]').click(function() {
+                                                const individualCost = $('#individual-cost-display').text().replace(' per session', '').replace('$', '');
+                                                const coupleCost = $('#couple-cost-display').text().replace(' per session', '').replace('$', '');
+                                                $('#individual-cost').val(individualCost);
+                                                $('#couple-cost').val(coupleCost);
+                                            });
+                                    
+                                            // Populate Payment Methods Modal with current values
+                                            $('.btn-link[data-target="#editPaymentMethodsModal"]').click(function() {
+                                                const paymentMethods = $('#payment-methods-display span').map(function() {
+                                                    return $(this).text();
+                                                }).get().join(', ');
+                                                $('#payment-methods').val(paymentMethods);
+                                            });
+                                    
+                                            // Save changes for Fees
+                                            $('#save-fees-changes').click(function() {
+                                                const updatedIndividualCost = $('#individual-cost').val();
+                                                const updatedCoupleCost = $('#couple-cost').val();
+                                                $('#individual-cost-display').text('$' + updatedIndividualCost + ' per session');
+                                                $('#couple-cost-display').text('$' + updatedCoupleCost + ' per session');
+                                                $('#finances').removeClass('d-none');
+                                                $('#editFeesModal').modal('hide');
+                                            });
+                                    
+                                            // Save changes for Payment Methods
+                                            $('#save-payment-methods-changes').click(function() {
+                                                const updatedPaymentMethods = $('#payment-methods').val().split(',').map(function(method) {
+                                                    return '<span>' + method.trim() + '</span>';
+                                                }).join('<span style="margin-left: 100px"></span>');
+                                                $('#payment-methods-display').html(updatedPaymentMethods);
+                                                $('#finances').removeClass('d-none');
+                                                $('#editPaymentMethodsModal').modal('hide');
+                                            });
+                                        });
+                                    </script>
+                                                   <!-- Qualifications Section -->
                                   <div id="qualifications" class="bio-section d-none">
                                     <h5>
                                         <strong>Qualifications:</strong>
