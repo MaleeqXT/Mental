@@ -446,8 +446,80 @@
     });
 </script>
 
+<hr>
+<!-- Website Section -->
+<div id="website" class="bio-section">
+    <h5>
+        <i class="fas fa-link"></i>
+        <strong>Website</strong>
+        <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#editWebsiteModal" style="padding: 0; margin-left: 10px;">
+            <i class="fas fa-edit"></i> Edit
+        </button>
+    </h5>
+    <p>Website: <span id="user-website">{{ auth()->user()->website ?? 'https://www.example.com' }}</span></p>
+</div>
+
+<!-- Modal for Editing Website -->
+<div class="modal fade" id="editWebsiteModal" tabindex="-1" aria-labelledby="editWebsiteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editWebsiteModalLabel">Edit Website URL</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="websiteForm">
+                    <div class="mb-3">
+                        <label for="websiteInput" class="form-label">Website URL</label>
+                        <input type="url" class="form-control" id="websiteInput" value="{{ auth()->user()->website ?? 'https://www.example.com' }}">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="saveWebsite">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Save changes for website URL
+        document.getElementById('saveWebsite').addEventListener('click', function () {
+            // Get the new website URL from the input
+            const newWebsite = document.getElementById('websiteInput').value;
+
+            // Update the displayed website URL
+            document.getElementById('user-website').textContent = newWebsite;
+
+            // Close the modal after saving
+            $('#editWebsiteModal').modal('hide');
+        });
+    });
+</script>
+
                                     </div>
+        
                                     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                     <!-- Edit Modal Structure -->
                                  
                                                                       
