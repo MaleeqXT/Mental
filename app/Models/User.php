@@ -9,6 +9,7 @@ use App\Notifications\VerifyEmail;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
+
     use HasFactory, Notifiable;
 
     protected $fillable = [
@@ -32,4 +33,5 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $this->notify(new VerifyEmail); // Custom notification
     }
+    
 }
