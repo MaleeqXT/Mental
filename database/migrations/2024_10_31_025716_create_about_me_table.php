@@ -9,6 +9,7 @@ return new class extends Migration
 
     public function up(): void
     {
+        if (!Schema::hasTable('about_me')) {
         Schema::create('about_me', function (Blueprint $table) {
             $table->id();
             $table->string('name');
@@ -35,6 +36,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
+    }
     }
 
     public function down(): void
