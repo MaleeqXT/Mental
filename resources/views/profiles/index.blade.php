@@ -74,17 +74,16 @@
                                                 <img src="{{ asset(auth()->user()->image) }}" alt="Profile Image" class="rounded" width="80" height="80">
                                                 <div class="ms-3">
                                                     <h2>
-                                                        <span class="me-2">Hasnain</span>, <!-- First Name -->
-                                                        <span class="me-2">Khan</span>     <!-- Last Name -->
-                                                        
+                                                        <span id="user-first-name">Hasnain</span>
+                                                        <span id="user-middle-name">Ali</span>
+                                                        <span id="user-last-name">Khan</span>
                                                     </h2>
                                                     <p class="text-muted mb-0">
-                                                        <i class="fas fa-user-md me-2"></i> <!-- Icon added here -->
-                                                        Psychologist, LCSW
+                                                        <i class="fas fa-user-md me-2"></i>
+                                                        <span id="user-title">Psychologist, LCSW</span>
                                                     </p>
-                                                    <p class="text-muted mb-0" id="user-title">
-                                                        <i class="fas fa-thumbs-up me-1"></i> <!-- Like icon added here -->
-                                                        {{ auth()->user()->title ?? 'Senior Software Engineer' }}
+                                                    <p class="text-muted mb-0" id="user-credentials">
+                                                        <i class="fas fa-certificate me-1"></i> LCSW
                                                     </p>
                                                 </div>
                                             </div>
@@ -93,77 +92,70 @@
                                                 <i class="fas fa-edit"></i> Edit
                                             </button>
                                         </div>
-
+                                    
                                         <!-- Edit Modal Structure -->
-        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editModalLabel">Edit Personal Information</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="first_name" class="form-label">First Name</label>
-                            <input type="text" class="form-control" id="first_name" value="{{ auth()->user()->first_name ?? '' }}">
-                        </div>
-                        <div class="mb-3">
-                            <label for="last_name" class="form-label">Last Name</label>
-                            <input type="text" class="form-control" id="last_name" value="{{ auth()->user()->last_name ?? '' }}">
-                        </div>
-                        <div class="mb-3">
-                            <label for="title" class="form-label">Title</label>
-                            <input type="text" class="form-control" id="title" value="{{ auth()->user()->title ?? 'Psychologist, LCSW' }}">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button id="saveChanges" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <script>
-            $(document).ready(function() {
-                // Handle save changes button click
-                $('#saveChanges').on('click', function() {
-                    // Gather data from inputs
-                    const firstName = $('#first_name').val();
-                    const lastName = $('#last_name').val();
-                    const title = $('#title').val();
-
-                    $.ajax({
-                        url: "{{ route('profile.update') }}", // Use the update route
-                        type: 'POST',
-                        data: {
-                            _token: '{{ csrf_token() }}', // Include CSRF token
-                            first_name: firstName,
-                            last_name: lastName,
-                            title: title
-                        },
-                        success: function(response) {
-                            // Update personal info without reloading
-                            $('#user-first-name').text(response.first_name); // Update First Name
-                            $('#user-last-name').text(response.last_name); // Update Last Name
-                            $('#user-title').text(response.title); // Update Title
-
-                            // Close the modal
-                            $('#editModal').modal('hide');
-                        },
-                        error: function(xhr) {
-                            console.error(xhr.responseText); // Log any error messages
-                            alert("An error occurred. Please try again."); // Notify the user of the error
-                        }
-                    });
-                });
-
-                // Reset the modal fields when it is hidden
-                $('#editModal').on('hidden.bs.modal', function() {
-                    $(this).find('input').val(''); // Clear input fields
-                });
-            });
-        </script>
+                                        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="editModalLabel">Edit Personal Information</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="mb-3">
+                                                            <label for="first_name" class="form-label">First Name</label>
+                                                            <input type="text" class="form-control" id="first_name" value="Hasnain">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="middle_name" class="form-label">Middle Name</label>
+                                                            <input type="text" class="form-control" id="middle_name" value="Ali">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="last_name" class="form-label">Last Name</label>
+                                                            <input type="text" class="form-control" id="last_name" value="Khan">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="title" class="form-label">Title</label>
+                                                            <input type="text" class="form-control" id="title" value="Psychologist, LCSW">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="credentials" class="form-label">Credentials</label>
+                                                            <input type="text" class="form-control" id="credentials" value="LCSW">
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <button id="saveChanges" class="btn btn-primary">Save changes</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    
+                                        <script>
+                                            document.addEventListener("DOMContentLoaded", function() {
+                                                document.getElementById("saveChanges").addEventListener("click", function() {
+                                                    // Get values from input fields
+                                                    const firstName = document.getElementById("first_name").value;
+                                                    const middleName = document.getElementById("middle_name").value;
+                                                    const lastName = document.getElementById("last_name").value;
+                                                    const title = document.getElementById("title").value;
+                                                    const credentials = document.getElementById("credentials").value;
+                                    
+                                                    // Update display with new values
+                                                    document.getElementById("user-first-name").textContent = firstName;
+                                                    document.getElementById("user-middle-name").textContent = middleName;
+                                                    document.getElementById("user-last-name").textContent = lastName;
+                                                    document.getElementById("user-title").textContent = title;
+                                                    document.getElementById("user-credentials").textContent = credentials;
+                                    
+                                                    // Close the modal
+                                                    const modal = bootstrap.Modal.getInstance(document.getElementById("editModal"));
+                                                    modal.hide();
+                                                });
+                                            });
+                                        </script>
+                                    
+                                    
                                     <hr>
                                     
 
