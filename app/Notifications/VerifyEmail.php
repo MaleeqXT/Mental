@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Notifications;
 
 use Illuminate\Auth\Notifications\VerifyEmail as VerifyEmailBase;

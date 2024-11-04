@@ -16,12 +16,18 @@ class EnsureEmailIsVerified
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (! $request->user() ||
-            ($request->user() instanceof MustVerifyEmail &&
-            ! $request->user()->hasVerifiedEmail())) {
-            return response()->json(['message' => 'Your email address is not verified.'], 409);
+        if (!$request->user() || 
+            ($request->user() instanceof MustVerifyEmail && 
+            !$request->user()->hasVerifiedEmail())) {
+    
+            // Log the user information for debugging
+            \Log::info('User verification check:', [
+                'user_id' => $request->user() ? $request->user()->id : null,
+                'verified' => $request->user() ? $request->user()->hasVerifiedEmail() : null,
+            ]);
+    
         }
-
+    
         return $next($request);
     }
     

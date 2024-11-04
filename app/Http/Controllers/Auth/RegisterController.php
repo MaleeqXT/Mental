@@ -43,11 +43,17 @@ class RegisterController extends Controller
             $image->move(public_path('users'), $imagePath);
         }
 
-        return User::create([
+        // Create the user
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'image' => $imagePath, // Save the image path to the database
         ]);
+
+        // Send email verification notification
+        $user->sendEmailVerificationNotification();
+
+        return $user; // Return the created user
     }
 }
