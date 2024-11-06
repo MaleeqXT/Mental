@@ -27,11 +27,10 @@
     <div class="container-fluid">
         <div class="page-content-wrapper">
             <div class="row">
-                <!-- Sidebar with Categories -->
                 <div class="col-xl-3 col-lg-4">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="font-size-16">My Proflie</h5>
+                            <h5 class="font-size-16">My Profile</h5>
                             <div class="border p-3 rounded mt-4">
                                 <!-- Category Links -->
                                 <div id="accordion" class="categories-accordion">
@@ -60,7 +59,7 @@
                         </div>
                     </div>
                 </div>
-
+                
                 <!-- Main Content Area for Dynamic Bio Information Display -->
                 <div class="col-lg-9">
                     <div class="row">
@@ -72,22 +71,25 @@
                                         <div class="d-flex align-items-center justify-content-between mb-4">
                                             <div class="d-flex align-items-center">
                                                 <img src="{{ asset(auth()->user()->image) }}" alt="Profile Image" class="rounded" width="80" height="80">
+                                                
                                                 <div class="ms-3">
                                                     <h2>
-                                                        <span id="user-first-name">Hasnain</span>
-                                                        <span id="user-middle-name">Ali</span>
-                                                        <span id="user-last-name">Khan</span>
+                                                        <!-- Display Personal Bio -->
+                                                        <span id="user-first-name">{{ $personalBio->first_name ?? '' }}</span>
+                                                        <span id="user-middle-name">{{ $personalBio->middle_name ?? '' }}</span>
+                                                        <span id="user-last-name">{{ $personalBio->last_name ?? '' }}</span>
                                                     </h2>
                                                     <p class="text-muted mb-0">
                                                         <i class="fas fa-user-md me-2"></i>
-                                                        <span id="user-title">Psychologist, LCSW</span>
+                                                        <span id="user-title">{{ $personalBio->title ?? '' }}</span>
                                                     </p>
                                                     <p class="text-muted mb-0" id="user-credentials">
-                                                        <i class="fas fa-certificate me-1"></i> LCSW
+                                                        <i class="fas fa-certificate me-1"></i> {{ $personalBio->credentials ?? '' }}
                                                     </p>
                                                 </div>
                                             </div>
                                             
+                                            <!-- Button to Open Modal -->
                                             <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#editModal" style="padding: 0; margin-right: 10px; margin-left: 50%;">
                                                 <i class="fas fa-edit"></i> Edit
                                             </button>
@@ -97,80 +99,63 @@
                                         <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="editModalLabel">Edit Personal Information</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="mb-3">
-                                                            <label for="first_name" class="form-label">First Name</label>
-                                                            <input type="text" class="form-control" id="first_name" value="Hasnain">
+                                                    <form method="POST" action="{{ route('user.update') }}">
+                                                        @csrf
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="editModalLabel">Edit Personal Information</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
-                                                        <div class="mb-3">
-                                                            <label for="middle_name" class="form-label">Middle Name</label>
-                                                            <input type="text" class="form-control" id="middle_name" value="Ali">
+                                                        <div class="modal-body">
+                                                            <div class="mb-3">
+                                                                <label for="first_name" class="form-label">First Name</label>
+                                                                <input type="text" class="form-control" id="first_name" name="first_name" value="{{ old('first_name', $personalBio->first_name ?? '') }}">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="middle_name" class="form-label">Middle Name</label>
+                                                                <input type="text" class="form-control" id="middle_name" name="middle_name" value="{{ old('middle_name', $personalBio->middle_name ?? '') }}">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="last_name" class="form-label">Last Name</label>
+                                                                <input type="text" class="form-control" id="last_name" name="last_name" value="{{ old('last_name', $personalBio->last_name ?? '') }}">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="title" class="form-label">Title</label>
+                                                                <input type="text" class="form-control" id="title" name="title" value="{{ old('title', $personalBio->title ?? '') }}">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="credentials" class="form-label">Credentials</label>
+                                                                <input type="text" class="form-control" id="credentials" name="credentials" value="{{ old('credentials', $personalBio->credentials ?? '') }}">
+                                                            </div>
                                                         </div>
-                                                        <div class="mb-3">
-                                                            <label for="last_name" class="form-label">Last Name</label>
-                                                            <input type="text" class="form-control" id="last_name" value="Khan">
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary">Save changes</button>
                                                         </div>
-                                                        <div class="mb-3">
-                                                            <label for="title" class="form-label">Title</label>
-                                                            <input type="text" class="form-control" id="title" value="Psychologist, LCSW">
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="credentials" class="form-label">Credentials</label>
-                                                            <input type="text" class="form-control" id="credentials" value="LCSW">
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                        <button id="saveChanges" class="btn btn-primary">Save changes</button>
-                                                    </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
                                     
-                                        <script>
-                                            document.addEventListener("DOMContentLoaded", function() {
-                                                document.getElementById("saveChanges").addEventListener("click", function() {
-                                                    // Get values from input fields
-                                                    const firstName = document.getElementById("first_name").value;
-                                                    const middleName = document.getElementById("middle_name").value;
-                                                    const lastName = document.getElementById("last_name").value;
-                                                    const title = document.getElementById("title").value;
-                                                    const credentials = document.getElementById("credentials").value;
                                     
-                                                    // Update display with new values
-                                                    document.getElementById("user-first-name").textContent = firstName;
-                                                    document.getElementById("user-middle-name").textContent = middleName;
-                                                    document.getElementById("user-last-name").textContent = lastName;
-                                                    document.getElementById("user-title").textContent = title;
-                                                    document.getElementById("user-credentials").textContent = credentials;
                                     
-                                                    // Close the modal
-                                                    const modal = bootstrap.Modal.getInstance(document.getElementById("editModal"));
-                                                    modal.hide();
-                                                });
-                                            });
-                                        </script>
-                                    
+
                                     
                                     <hr>
                                     
 
 
-                                    <!-- Personal Statement Section -->
+<!-- Personal Statement Section -->
 <div id="personal-statement" class="bio-section">
     <h5>
-        <i class="fas fa-file-alt"></i> 
+        <i class="fas fa-file-alt"></i>
         <strong>Personal Statement:</strong>
         <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#editPersonalStatementModal" style="padding: 0; margin-left: 10px;">
             <i class="fas fa-edit"></i> Edit
         </button>
     </h5>
     <p id="user-bio">
-        {{ auth()->user()->bio ?? 'As a Senior Software Developer with over 8 years of experience in designing and implementing robust software solutions, I am passionate about leveraging technology to solve complex problems and improve user experiences. My expertise spans various programming languages, including PHP, JavaScript, and Python, with a strong emphasis on Laravel and React frameworks.' }}
+        {{ $personalStatement->bio ?? 'As a Senior Software Developer with over 8 years of experience in designing and implementing robust software solutions, I am passionate about leveraging technology to solve complex problems and improve user experiences. My expertise spans various programming languages, including PHP, JavaScript, and Python, with a strong emphasis on Laravel and React frameworks.' }}
     </p>
 </div>
 
@@ -182,43 +167,37 @@
                 <h5 class="modal-title" id="editPersonalStatementModalLabel">Edit Personal Statement</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+
             <div class="modal-body">
-                <form id="personalStatementForm">
+                <form method="POST" action="{{ route('profile.personalStatement.update') }}">
+                    @csrf
                     <div class="mb-3">
                         <label for="personalStatementInput" class="form-label">Your Personal Statement</label>
-                        <textarea class="form-control" id="personalStatementInput" rows="5">{{ auth()->user()->bio ?? 'As a Senior Software Developer with over 8 years of experience in designing and implementing robust software solutions, I am passionate about leveraging technology to solve complex problems and improve user experiences. My expertise spans various programming languages, including PHP, JavaScript, and Python, with a strong emphasis on Laravel and React frameworks.' }}</textarea>
+                        <p id="user-bio">
+                            {{ $personalStatement->bio ?? 'Default bio text' }}
+                        </p>
+                        
+                        <textarea class="form-control" id="personalStatementInput" name="bio" rows="5">{{ $personalStatement->bio }}</textarea>
                     </div>
-                </form>
             </div>
+            
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" id="savePersonalStatement">Save changes</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
             </div>
+        </form>
         </div>
     </div>
 </div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // Open the modal and populate the textarea
-        $('#editPersonalStatementModal').on('show.bs.modal', function () {
-            const bio = document.getElementById('user-bio').textContent;
-            document.getElementById('personalStatementInput').value = bio;
-        });
-
-        // Save changes to the personal statement
-        document.getElementById('savePersonalStatement').addEventListener('click', function () {
-            const updatedBio = document.getElementById('personalStatementInput').value;
-            document.getElementById('user-bio').textContent = updatedBio;
-
-            // Optionally, here you can add an AJAX request to save the changes to the server
-
-            // Close the modal after saving
-            $('#editPersonalStatementModal').modal('hide');
-        });
+        // This code is no longer needed since we are submitting the form directly
     });
 </script>
+     
 <hr>
+
 <!-- Identity Section -->
 <div id="identity" class="bio-section">
     <h5>
@@ -282,14 +261,12 @@
                             <div class="col">
                                 <select class="form-select" id="dobDayInput">
                                     <option value="" disabled selected>Day</option>
-                                    <!-- Days 1 to 31 -->
                                     ${Array.from({length: 31}, (_, i) => `<option value="${i + 1}">${i + 1}</option>`).join('')}
                                 </select>
                             </div>
                             <div class="col">
                                 <select class="form-select" id="dobYearInput">
                                     <option value="" disabled selected>Year</option>
-                                    <!-- Years from 1900 to current year -->
                                     ${Array.from({length: (new Date().getFullYear() - 1900 + 1)}, (_, i) => `<option value="${1900 + i}">${1900 + i}</option>`).join('')}
                                 </select>
                             </div>
@@ -307,9 +284,16 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        // Load saved identity from localStorage
+        const storedIdentity = JSON.parse(localStorage.getItem('userIdentity'));
+        if (storedIdentity) {
+            document.getElementById('user-age').textContent = storedIdentity.age || '30';
+            document.getElementById('user-gender').textContent = storedIdentity.gender || 'Male';
+            document.getElementById('user-faith').textContent = storedIdentity.faith || 'Christianity';
+        }
+
         // Save changes for identity
         document.getElementById('saveIdentity').addEventListener('click', function () {
-            // Get values from the form
             const age = document.getElementById('ageInput').value;
             const gender = document.getElementById('genderSelect').value;
             const faith = document.getElementById('faithInput').value;
@@ -319,12 +303,13 @@
             document.getElementById('user-gender').textContent = gender;
             document.getElementById('user-faith').textContent = faith;
 
-            // Optionally, handle the date of birth inputs here
-            const dobMonth = document.getElementById('dobMonthInput').value;
-            const dobDay = document.getElementById('dobDayInput').value;
-            const dobYear = document.getElementById('dobYearInput').value;
-            const dob = `${dobMonth}/${dobDay}/${dobYear}`; // Format as MM/DD/YYYY
-            console.log('Date of Birth:', dob); // You can use this value as needed
+            // Save to localStorage
+            const identityData = {
+                age,
+                gender,
+                faith,
+            };
+            localStorage.setItem('userIdentity', JSON.stringify(identityData));
 
             // Close the modal after saving
             $('#editIdentityModal').modal('hide');
@@ -332,8 +317,9 @@
     });
 </script>
 
-                                        <hr>
-                                        <!-- Phone Section -->
+<hr>
+
+<!-- Phone Section -->
 <div id="phone" class="bio-section">
     <h5>
         <i class="fas fa-phone-alt"></i> 
@@ -371,19 +357,28 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        // Load saved phone from localStorage
+        const storedPhone = localStorage.getItem('userPhone');
+        if (storedPhone) {
+            document.getElementById('user-phone').textContent = storedPhone;
+        }
+
         // Save changes for phone number
         document.getElementById('savePhone').addEventListener('click', function () {
-            // Get the new phone number from the input
             const newPhone = document.getElementById('phoneInput').value;
 
             // Update the displayed phone number
             document.getElementById('user-phone').textContent = newPhone;
+
+            // Save to localStorage
+            localStorage.setItem('userPhone', newPhone);
 
             // Close the modal after saving
             $('#editPhoneModal').modal('hide');
         });
     });
 </script>
+
 <hr>
 
 <!-- Email Section -->
@@ -403,7 +398,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editEmailModalLabel">Edit Email Address</h5>
+                <h5 class="modal-title" id="editEmailModalLabel">Edit Email</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -424,13 +419,21 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // Save changes for email address
+        // Load saved email from localStorage
+        const storedEmail = localStorage.getItem('userEmail');
+        if (storedEmail) {
+            document.getElementById('user-email').textContent = storedEmail;
+        }
+
+        // Save changes for email
         document.getElementById('saveEmail').addEventListener('click', function () {
-            // Get the new email from the input
             const newEmail = document.getElementById('emailInput').value;
 
             // Update the displayed email address
             document.getElementById('user-email').textContent = newEmail;
+
+            // Save to localStorage
+            localStorage.setItem('userEmail', newEmail);
 
             // Close the modal after saving
             $('#editEmailModal').modal('hide');
@@ -439,16 +442,17 @@
 </script>
 
 <hr>
+
 <!-- Website Section -->
 <div id="website" class="bio-section">
     <h5>
-        <i class="fas fa-link"></i>
+        <i class="fas fa-globe"></i> 
         <strong>Website</strong>
         <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#editWebsiteModal" style="padding: 0; margin-left: 10px;">
             <i class="fas fa-edit"></i> Edit
         </button>
     </h5>
-    <p>Website: <span id="user-website">{{ auth()->user()->website ?? 'https://www.example.com' }}</span></p>
+    <p>Website: <span id="user-website">{{ auth()->user()->website ?? 'https://example.com' }}</span></p>
 </div>
 
 <!-- Modal for Editing Website -->
@@ -456,14 +460,14 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editWebsiteModalLabel">Edit Website URL</h5>
+                <h5 class="modal-title" id="editWebsiteModalLabel">Edit Website</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form id="websiteForm">
                     <div class="mb-3">
                         <label for="websiteInput" class="form-label">Website URL</label>
-                        <input type="url" class="form-control" id="websiteInput" value="{{ auth()->user()->website ?? 'https://www.example.com' }}">
+                        <input type="url" class="form-control" id="websiteInput" value="{{ auth()->user()->website ?? 'https://example.com' }}">
                     </div>
                 </form>
             </div>
@@ -477,13 +481,21 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // Save changes for website URL
+        // Load saved website from localStorage
+        const storedWebsite = localStorage.getItem('userWebsite');
+        if (storedWebsite) {
+            document.getElementById('user-website').textContent = storedWebsite;
+        }
+
+        // Save changes for website
         document.getElementById('saveWebsite').addEventListener('click', function () {
-            // Get the new website URL from the input
             const newWebsite = document.getElementById('websiteInput').value;
 
             // Update the displayed website URL
             document.getElementById('user-website').textContent = newWebsite;
+
+            // Save to localStorage
+            localStorage.setItem('userWebsite', newWebsite);
 
             // Close the modal after saving
             $('#editWebsiteModal').modal('hide');
