@@ -8,18 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class PersonalStatementController extends Controller
 {
-    public function show()
-{
-    // Retrieve or create the personal statement for the logged-in user
-    $personalStatement = PersonalStatement::firstOrCreate(
-        ['user_id' => Auth::id()],
-        ['bio' => ''] // Default empty bio if it doesn’t exist
-    );
-
-    // Pass the personal statement to the view
-    return view('profiles.index', compact('personalStatement'));
-}
-
+ 
 
     public function update(Request $request)
     {

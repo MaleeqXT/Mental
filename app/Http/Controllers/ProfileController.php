@@ -6,20 +6,23 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\PersonalBio;
 use App\Models\PersonalStatement;
+use App\Models\Identity; // Include Identity model
+
 class ProfileController extends Controller
 {
     public function about()
     {
-        // Retrieve the user's PersonalBio or create a new instance
+        // Retrieve or create necessary records
         $personalBio = PersonalBio::firstOrNew(['user_id' => Auth::id()]);
         $personalStatement = PersonalStatement::firstOrCreate(
             ['user_id' => Auth::id()],
             ['bio' => ''] // Default empty bio if it doesn’t exist
         );
-        return view('profiles.index', compact('personalBio','personalStatement'));
+        $identity = Identity::firstOrNew(['user_id' => Auth::id()]); // Retrieve or create Identity record
+        
+        // Pass all data to the view
+        return view('profiles.index', compact('personalBio', 'personalStatement', 'identity'));
     }
-    
-
 
     public function update(Request $request)
     {
@@ -31,7 +34,7 @@ class ProfileController extends Controller
             'title' => 'nullable|string|max:255',
             'credentials' => 'nullable|string|max:255',
         ]);
-    
+
         // Update or create the personal bio
         $personalBio = PersonalBio::updateOrCreate(
             ['user_id' => Auth::id()],
@@ -43,9 +46,8 @@ class ProfileController extends Controller
                 'credentials' => $request->credentials,
             ]
         );
-    
+
         // Redirect back to the profile page with a success message
         return redirect()->route('profiles.index')->with('success', 'Personal information updated successfully.');
     }
-    
 }

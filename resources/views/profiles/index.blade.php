@@ -207,9 +207,12 @@
             <i class="fas fa-edit"></i> Edit
         </button>
     </h5>
-    <p><strong>Age:</strong> <span id="user-age">30</span></p>
-    <p><strong>Gender:</strong> <span id="user-gender">Male</span></p>
-    <p><strong>Faith:</strong> <span id="user-faith">Christianity</span></p>
+   <!-- Displaying Identity Data -->
+<p><strong>Age:</strong> <span id="user-age">{{ $identity->age ?? 'Not provided' }}</span></p>
+<p><strong>Gender:</strong> <span id="user-gender">{{ $identity->gender ?? 'Not provided' }}</span></p>
+<p><strong>Faith:</strong> <span id="user-faith">{{ $identity->faith ?? 'Not provided' }}</span></p>
+
+
 </div>
 
 <!-- Modal for Editing Identity -->
@@ -221,28 +224,34 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="identityForm">
+                <!-- Form for Identity data with CSRF token and POST action -->
+                <form id="identityForm" method="POST" action="{{ route('identity.store') }}">
+                    @csrf <!-- CSRF token for security -->
+                    
                     <div class="mb-3">
                         <label for="ageInput" class="form-label">Age</label>
-                        <input type="number" class="form-control" id="ageInput" value="30" min="0" max="120">
+                        <input type="number" class="form-control" id="ageInput" name="age" value="30" min="0" max="120">
                     </div>
+                    
                     <div class="mb-3">
                         <label for="genderSelect" class="form-label">Gender</label>
-                        <select class="form-select" id="genderSelect">
+                        <select class="form-select" id="genderSelect" name="gender">
                             <option value="Male" selected>Male</option>
                             <option value="Female">Female</option>
                             <option value="Other">Other</option>
                         </select>
                     </div>
+                    
                     <div class="mb-3">
                         <label for="faithInput" class="form-label">Faith</label>
-                        <input type="text" class="form-control" id="faithInput" value="Christianity">
+                        <input type="text" class="form-control" id="faithInput" name="faith" value="Christianity">
                     </div>
+                    
                     <div class="mb-3">
                         <label for="dobMonthInput" class="form-label">Date of Birth</label>
                         <div class="row">
                             <div class="col">
-                                <select class="form-select" id="dobMonthInput">
+                                <select class="form-select" id="dobMonthInput" name="dob_month">
                                     <option value="" disabled selected>Month</option>
                                     <option value="1">January</option>
                                     <option value="2">February</option>
@@ -259,63 +268,40 @@
                                 </select>
                             </div>
                             <div class="col">
-                                <select class="form-select" id="dobDayInput">
+                                <select class="form-select" id="dobDayInput" name="dob_day">
                                     <option value="" disabled selected>Day</option>
-                                    ${Array.from({length: 31}, (_, i) => `<option value="${i + 1}">${i + 1}</option>`).join('')}
+                                    @for ($i = 1; $i <= 31; $i++)
+                                        <option value="{{ $i }}">{{ $i }}</option>
+                                    @endfor
                                 </select>
                             </div>
                             <div class="col">
-                                <select class="form-select" id="dobYearInput">
+                                <select class="form-select" id="dobYearInput" name="dob_year">
                                     <option value="" disabled selected>Year</option>
-                                    ${Array.from({length: (new Date().getFullYear() - 1900 + 1)}, (_, i) => `<option value="${1900 + i}">${1900 + i}</option>`).join('')}
+                                    @for ($year = 1900; $year <= now()->year; $year++)
+                                        <option value="{{ $year }}">{{ $year }}</option>
+                                    @endfor
                                 </select>
                             </div>
                         </div>
                     </div>
+                    
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" id="saveIdentity">Save changes</button>
             </div>
         </div>
     </div>
 </div>
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Load saved identity from localStorage
-        const storedIdentity = JSON.parse(localStorage.getItem('userIdentity'));
-        if (storedIdentity) {
-            document.getElementById('user-age').textContent = storedIdentity.age || '30';
-            document.getElementById('user-gender').textContent = storedIdentity.gender || 'Male';
-            document.getElementById('user-faith').textContent = storedIdentity.faith || 'Christianity';
-        }
 
-        // Save changes for identity
-        document.getElementById('saveIdentity').addEventListener('click', function () {
-            const age = document.getElementById('ageInput').value;
-            const gender = document.getElementById('genderSelect').value;
-            const faith = document.getElementById('faithInput').value;
-
-            // Update the displayed identity information
-            document.getElementById('user-age').textContent = age;
-            document.getElementById('user-gender').textContent = gender;
-            document.getElementById('user-faith').textContent = faith;
-
-            // Save to localStorage
-            const identityData = {
-                age,
-                gender,
-                faith,
-            };
-            localStorage.setItem('userIdentity', JSON.stringify(identityData));
-
-            // Close the modal after saving
-            $('#editIdentityModal').modal('hide');
-        });
-    });
-</script>
 
 <hr>
 
@@ -503,14 +489,10 @@
     });
 </script>
 
-                                    </div>
+                                    
+                                    
         
                                     
-
-
-
-
-
 
 
 
@@ -658,7 +640,8 @@
                                             });
                                         });
                                     </script>
-                                                   <!-- Qualifications Section -->
+                                
+                                              <!-- Qualifications Section -->
                                                    <div id="qualifications" class="bio-section d-none">
                                                     <h5>
                                                         <strong>Qualifications:</strong>
