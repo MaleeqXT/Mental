@@ -6,6 +6,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\PersonalStatementController;
 use App\Http\Controllers\ProfileEmailController;
 use App\Http\Controllers\WebsiteController;
+use App\Http\Controllers\IdentityController;
 
 
 
@@ -38,6 +39,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/profile/personal-statement', [PersonalStatementController::class, 'update'])->name('profile.personalStatement.update');
     Route::post('/profile/website', [WebsiteController::class, 'update'])->name('profile.website.update');
     Route::post('/profile/email', [ProfileEmailController::class, 'update'])->name('profile.email.update');
+    Route::post('/identity/store', [IdentityController::class, 'store'])->name('identity.store');
 });
 
 
