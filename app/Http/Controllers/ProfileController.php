@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\PersonalBio;
 use App\Models\PersonalStatement;
+use App\Models\ProfileEmail;
+use App\Models\ProfileWebsite;
 class ProfileController extends Controller
 {
     public function about()
@@ -16,7 +18,15 @@ class ProfileController extends Controller
             ['user_id' => Auth::id()],
             ['bio' => ''] // Default empty bio if it doesn’t exist
         );
-        return view('profiles.index', compact('personalBio','personalStatement'));
+        $userEmail = ProfileEmail::firstOrCreate(
+            ['user_id' => Auth::id()],
+            ['email' => Auth::user()->email]
+        );
+        $website = ProfileWebsite::firstOrCreate(
+            ['user_id' => Auth::id()],
+            ['website' => 'https://example.com'] // Default website if it doesn’t exist
+        );
+        return view('profiles.index', compact('personalBio','personalStatement','userEmail','website'));
     }
     
 

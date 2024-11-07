@@ -390,7 +390,7 @@
             <i class="fas fa-edit"></i> Edit
         </button>
     </h5>
-    <p>Email: <span id="user-email">{{ auth()->user()->email }}</span></p>
+    <p>Email: <span id="user-email">{{ $userEmail->email }}</span></p>
 </div>
 
 <!-- Modal for Editing Email -->
@@ -401,45 +401,23 @@
                 <h5 class="modal-title" id="editEmailModalLabel">Edit Email</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+
             <div class="modal-body">
-                <form id="emailForm">
+                <form method="POST" action="{{ route('profile.email.update') }}">
+                    @csrf
                     <div class="mb-3">
                         <label for="emailInput" class="form-label">Email Address</label>
-                        <input type="email" class="form-control" id="emailInput" value="{{ auth()->user()->email }}">
+                        <input type="email" class="form-control" id="emailInput" name="email" value="{{ $userEmail->email }}" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
                     </div>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" id="saveEmail">Save changes</button>
             </div>
         </div>
     </div>
 </div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Load saved email from localStorage
-        const storedEmail = localStorage.getItem('userEmail');
-        if (storedEmail) {
-            document.getElementById('user-email').textContent = storedEmail;
-        }
-
-        // Save changes for email
-        document.getElementById('saveEmail').addEventListener('click', function () {
-            const newEmail = document.getElementById('emailInput').value;
-
-            // Update the displayed email address
-            document.getElementById('user-email').textContent = newEmail;
-
-            // Save to localStorage
-            localStorage.setItem('userEmail', newEmail);
-
-            // Close the modal after saving
-            $('#editEmailModal').modal('hide');
-        });
-    });
-</script>
 
 <hr>
 
@@ -452,7 +430,7 @@
             <i class="fas fa-edit"></i> Edit
         </button>
     </h5>
-    <p>Website: <span id="user-website">{{ auth()->user()->website ?? 'https://example.com' }}</span></p>
+    <p>Website: <span id="user-website">{{ $website->website ?? 'https://example.com' }}</span></p>
 </div>
 
 <!-- Modal for Editing Website -->
@@ -464,44 +442,21 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="websiteForm">
+                <form method="POST" action="{{ route('profile.website.update') }}">
+                    @csrf
                     <div class="mb-3">
                         <label for="websiteInput" class="form-label">Website URL</label>
-                        <input type="url" class="form-control" id="websiteInput" value="{{ auth()->user()->website ?? 'https://example.com' }}">
+                        <input type="url" class="form-control" id="websiteInput" name="website" value="{{ $website->website ?? 'https://example.com' }}">
                     </div>
-                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" id="saveWebsite">Save changes</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
             </div>
+                </form>
         </div>
     </div>
 </div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Load saved website from localStorage
-        const storedWebsite = localStorage.getItem('userWebsite');
-        if (storedWebsite) {
-            document.getElementById('user-website').textContent = storedWebsite;
-        }
-
-        // Save changes for website
-        document.getElementById('saveWebsite').addEventListener('click', function () {
-            const newWebsite = document.getElementById('websiteInput').value;
-
-            // Update the displayed website URL
-            document.getElementById('user-website').textContent = newWebsite;
-
-            // Save to localStorage
-            localStorage.setItem('userWebsite', newWebsite);
-
-            // Close the modal after saving
-            $('#editWebsiteModal').modal('hide');
-        });
-    });
-</script>
 
                                     </div>
         

@@ -4,6 +4,12 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\PersonalStatementController;
+use App\Http\Controllers\ProfileEmailController;
+use App\Http\Controllers\WebsiteController;
+
+
+
+
 
 Route::middleware(['auth','verified'])->group(function () {
     Route::resource('services', ServiceController::class);
@@ -27,11 +33,11 @@ Route::post('/profile/update', [ProfileController::class, 'update'])->name('user
 
 
 Route::middleware(['auth'])->group(function () {
-    // Display personal statement
-    Route::get('/profile/personal-statement', [PersonalStatementController::class, 'show'])->name('profile.personalStatement.show');
 
     // Update personal statement
     Route::post('/profile/personal-statement', [PersonalStatementController::class, 'update'])->name('profile.personalStatement.update');
+    Route::post('/profile/website', [WebsiteController::class, 'update'])->name('profile.website.update');
+    Route::post('/profile/email', [ProfileEmailController::class, 'update'])->name('profile.email.update');
 });
 
 

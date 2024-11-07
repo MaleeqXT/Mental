@@ -25,7 +25,12 @@
             <div data-simplebar class="h-100">
                 <!-- Sidebar Header -->
                 @include('admin.layouts.header')
-
+                @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+            
                 <div class="user-sidebar text-center">
                     @include('admin.layouts.right')
                 </div>
@@ -42,11 +47,6 @@
         <!-- Main Content -->
         <div class="main-content">
             @yield('content')
-            @if (session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-@endif
 
         </div>
     </div>
